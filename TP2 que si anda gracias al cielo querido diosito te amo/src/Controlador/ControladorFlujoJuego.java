@@ -127,4 +127,8 @@ public class ControladorFlujoJuego {
     public void habilitarBotonesUnidadDeJugador(Jugador jugador) {
         this.controladorPrincipal.habilitarBotonesUnidadDeJugador(jugador);
     }
+
+    public void cambiarAPantallaDeJuego() {
+        this.controladorPrincipal.PantallaDeJuego();
+    }
 }

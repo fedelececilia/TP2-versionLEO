@@ -142,6 +142,10 @@ public class ControladorPrincipal {
         return new Scene(stackPane);
     }
 
+    public Scene PantallaDeJuego() {
+        return new Scene(null);
+    }
+
 
     public void cambiarLabelTurno(Jugador jugador) {
         this.labelTurno.setText("Turno de: " + jugador.obtenerNombre());

@@ -84,7 +84,6 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
                 }
                 else controlador.habilitarBotonesUnidadDeJugador(jugador1);
             }
-            return;
         }
         else {
             if (jugador2.ubicarUnidad(ultimaComprada, coordenada)) {
@@ -96,6 +95,9 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
                 }
                 controlador.habilitarBotonesUnidadDeJugador(jugador2);
             }
+        }
+        if (jugador1.obtenerPuntos() == 0 && jugador2.obtenerPuntos() == 0) {
+            controlador.cambiarAPantallaDeJuego();
         }
     }
 
