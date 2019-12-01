@@ -5,10 +5,7 @@ import Excepciones.BatallonInvalidoException;
 import Tablero.Coordenada;
 import Tablero.Direccion;
 import Tablero.Tablero;
-import Unidades.Batallon;
-import Unidades.Catapulta;
-import Unidades.Movible;
-import Unidades.Unidad;
+import Unidades.*;
 
 import java.util.ArrayList;
 
@@ -52,7 +49,9 @@ public class ControladorFlujoJuego {
                 updateEstadoDeJuego(jugador1, jugador2);
                 seleccionarUnidad(null);
                 cambiarLabelEstadoDeJuego(mensaje);
-                controladorPrincipal.cambiarLabelInfoJugador(jugador, seleccionada, true);
+                if (mensaje == "La acción es inválida. Pierde el turno.") return;
+                if (seleccionada instanceof Curandero) controladorPrincipal.cambiarLabelInfoJugador(jugador, tablero.obtenerCasillero(coordenada).obtenerUnidad(), false);
+                else controladorPrincipal.cambiarLabelInfoJugador(jugador, tablero.obtenerCasillero(coordenada).obtenerUnidad(), true);
                 return;
             }
             if(jugador.obtenerListaUnidades().contains(seleccionada)) {

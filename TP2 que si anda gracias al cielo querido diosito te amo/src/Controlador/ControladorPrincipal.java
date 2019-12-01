@@ -17,6 +17,7 @@ import vista.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class ControladorPrincipal {
 
@@ -226,11 +227,16 @@ public class ControladorPrincipal {
     }
 
     public void cambiarLabelInfoJugador(Jugador jugador, Unidad unidad, boolean esAtaque) {
+        if (unidad == null) {
+            infoUnidadesJugador1.keySet().removeIf(Objects::isNull);
+            infoUnidadesJugador2.keySet().removeIf(Objects::isNull);
+            return;
+        }
         if (jugador.obtenerNumeroJugador() == 1) {
             if (!esAtaque) {
                 Label labelInfoUnidad = infoUnidadesJugador1.get(unidad);
                 labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
-            } else {
+            } else if (!jugador.obtenerListaUnidades().contains(unidad)) {
                 Label labelInfoUnidad = infoUnidadesJugador2.get(unidad);
                 labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
             }
@@ -238,7 +244,7 @@ public class ControladorPrincipal {
             if (!esAtaque) {
                 Label labelInfoUnidad = infoUnidadesJugador2.get(unidad);
                 labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
-            } else {
+            } else if (!jugador.obtenerListaUnidades().contains(unidad)) {
                 Label labelInfoUnidad = infoUnidadesJugador1.get(unidad);
                 labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
             }
