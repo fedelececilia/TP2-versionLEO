@@ -29,23 +29,28 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
             if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
                 if(casillero.obtenerUnidad() instanceof SoldadoDeInfanteria && jugador1.obtenerListaUnidades().contains(casillero.obtenerUnidad())){
                     controlador.guardarABatallon(casillero.obtenerUnidad());
+                    this.controlador.cambiarLabelEstadoDeJuego("Se agregó el SoldadoDeInfantería al batallón.");
                     return;
                 }
                 else if(controlador.obtenerListaBatallon().size() == 3){
                     controlador.moverBatallon(coordenada);
                     jugador1.asignarTurno(false);
                     jugador2.asignarTurno(true);
+                    this.controlador.cambiarLabelTurno(jugador2);
+                    this.controlador.cambiarLabelEstadoDeJuego("Se movió el batallón.");
                     return;
                 }
             }
             else{
                 if (controlador.obtenerSeleccionada() == null && jugador1.obtenerListaUnidades().contains(casillero.obtenerUnidad())) {
                     controlador.seleccionarUnidad(casillero.obtenerUnidad());
+                    controlador.cambiarLabelEstadoDeJuego("Se seleccionó la unidad " + casillero.obtenerUnidad().getClass().getSimpleName() + ".");
                 }
                 else if(jugador1.obtenerListaUnidades().contains(controlador.obtenerSeleccionada())){
                     controlador.accionUnidad(coordenada, jugador1);
                     jugador1.asignarTurno(false);
                     jugador2.asignarTurno(true);
+                    this.controlador.cambiarLabelTurno(jugador2);
                 }
             }
         }
@@ -53,22 +58,27 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
             if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
                 if(casillero.obtenerUnidad() instanceof SoldadoDeInfanteria && jugador2.obtenerListaUnidades().contains(casillero.obtenerUnidad())){
                     controlador.guardarABatallon(casillero.obtenerUnidad());
+                    this.controlador.cambiarLabelEstadoDeJuego("Se agregó el SoldadoDeInfantería al batallón.");
                     return;
                 }
                 else if(controlador.obtenerListaBatallon().size() == 3){
                     controlador.moverBatallon(coordenada);
                     jugador1.asignarTurno(true);
                     jugador2.asignarTurno(false);
+                    this.controlador.cambiarLabelTurno(jugador1);
+                    this.controlador.cambiarLabelEstadoDeJuego("Se movió el batallón.");
                     return;
                 }
             }
             if (controlador.obtenerSeleccionada() == null && jugador2.obtenerListaUnidades().contains(casillero.obtenerUnidad())) {
                 controlador.seleccionarUnidad(casillero.obtenerUnidad());
+                controlador.cambiarLabelEstadoDeJuego("Se seleccionó la unidad " + casillero.obtenerUnidad().getClass().getSimpleName() + ".");
             }
             else if(jugador2.obtenerListaUnidades().contains(controlador.obtenerSeleccionada())){
                 controlador.accionUnidad(coordenada, jugador2);
                 jugador1.asignarTurno(true);
                 jugador2.asignarTurno(false);
+                this.controlador.cambiarLabelTurno(jugador1);
             }
         }
     }
@@ -81,14 +91,21 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
                 if (jugador2.obtenerPuntos() > 0) {
                     jugador1.asignarTurno(false);
                     jugador2.asignarTurno(true);
+                    controlador.cambiarLabelTurno(jugador2);
+                    controlador.cambiarLabelEstadoDeJuego("Seleccione unidad.");
                     controlador.habilitarBotonesUnidadDeJugador(jugador2);
                     return;
                 }
-                else controlador.habilitarBotonesUnidadDeJugador(jugador1);
+                else {
+                    controlador.cambiarLabelEstadoDeJuego("Seleccione unidad.");
+                    controlador.habilitarBotonesUnidadDeJugador(jugador1);
+                }
                 if (jugador1.obtenerPuntos() == 0 && jugador2.obtenerPuntos() == 0) {
                     controlador.cambiarAPantallaDeJuego();
                     controlador.cambiarEstadoDeJuego(true);
                 }
+            } else {
+                this.controlador.cambiarLabelEstadoDeJuego("Está ubicando la unidad en un casillero ocupado o del lado incorrecto del tablero. Pruebe en otro!");
             }
         }
         else {
@@ -97,17 +114,21 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
                 if (jugador1.obtenerPuntos() > 0) {
                     jugador1.asignarTurno(true);
                     jugador2.asignarTurno(false);
+                    controlador.cambiarLabelTurno(jugador1);
+                    controlador.cambiarLabelEstadoDeJuego("Seleccione unidad.");
                     controlador.habilitarBotonesUnidadDeJugador(jugador1);
                     return;
                 }
+                controlador.cambiarLabelEstadoDeJuego("Seleccione unidad.");
                 controlador.habilitarBotonesUnidadDeJugador(jugador2);
                 if (jugador1.obtenerPuntos() == 0 && jugador2.obtenerPuntos() == 0) {
                     controlador.cambiarAPantallaDeJuego();
                     controlador.cambiarEstadoDeJuego(true);
                 }
+            } else {
+                this.controlador.cambiarLabelEstadoDeJuego("Está ubicando la unidad en un casillero ocupado o del lado incorrecto del tablero. Pruebe en otro!");
             }
         }
-
     }
 
     @Override

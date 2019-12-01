@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import vista.*;
 
@@ -97,12 +98,12 @@ public class ControladorPrincipal {
         BotonSalir botonSalir = new BotonSalir();
         this.labelTurno = new Label();
         cambiarLabelTurno(jugador1);
-        labelTurno.setStyle("-fx-text-fill:WHITE;");
+        labelTurno.setStyle("-fx-text-fill:WHITE; -fx-font: 18 arial;");
         this.labelEstadoDeJuego = new Label();
         cambiarLabelEstadoDeJuego("Seleccione una unidad.");
-        labelEstadoDeJuego.setStyle("-fx-text-fill:WHITE;");
+        labelEstadoDeJuego.setStyle("-fx-text-fill:WHITE; -fx-font: 18 arial;");
 
-        HBox contenedorSuperior = new HBox(20);
+        HBox contenedorSuperior = new HBox(25);
         contenedorSuperior.setAlignment(Pos.CENTER_LEFT);
         contenedorSuperior.getChildren().addAll(botonSalir, labelTurno, labelEstadoDeJuego);
 
@@ -146,22 +147,26 @@ public class ControladorPrincipal {
 
     public void PantallaDeJuego() {
         BotonSalir botonSalir = new BotonSalir();
+        jugador1.asignarTurno(true);
+        jugador2.asignarTurno(false);
         cambiarLabelTurno(jugador1);
         cambiarLabelEstadoDeJuego("Comienza el juego!");
 
-        HBox contenedorSuperior = new HBox(20);
+        HBox contenedorSuperior = new HBox(25);
         contenedorSuperior.setAlignment(Pos.CENTER_LEFT);
         contenedorSuperior.getChildren().addAll(botonSalir, labelTurno, labelEstadoDeJuego);
 
         Label labelInstrucciones = new Label();
         labelInstrucciones.setMaxWidth(300);
         labelInstrucciones.setStyle("-fx-text-fill:WHITE;");
-        labelInstrucciones.setText("rthhhhhhhhhhhhhwrwhhhhhhhhhhhhhhhhhhhhhhhhhhhtrwthrhdzghsriksdnhrivherghoisrhjszdcbkjsbefuwgeufgwueifgwuiegfuiwegfuiwgefuwe");
+        labelInstrucciones.setTextAlignment(TextAlignment.JUSTIFY);
+        labelInstrucciones.setText("El jugador de turno selecciona una unidad, que puede" +
+                "moverse o realizar su acción correspondiente.");
 
         HBox contenedorPrincipal = new HBox(30);
         contenedorPrincipal.setMinHeight(700);
         contenedorPrincipal.setAlignment(Pos.CENTER);
-        contenedorPrincipal.getChildren().addAll(labelInstrucciones, this.tableroVista);
+        contenedorPrincipal.getChildren().addAll(this.tableroVista, labelInstrucciones);
 
         VBox canvas = new VBox();
         canvas.getChildren().addAll(contenedorSuperior, contenedorPrincipal);
@@ -175,7 +180,7 @@ public class ControladorPrincipal {
 
 
     public void cambiarLabelTurno(Jugador jugador) {
-        this.labelTurno.setText("Turno de: " + jugador.obtenerNombre());
+        this.labelTurno.setText("Turno de: " + jugador.obtenerNombre() + ".");
     }
 
     public void cambiarLabelEstadoDeJuego(String mensaje) {

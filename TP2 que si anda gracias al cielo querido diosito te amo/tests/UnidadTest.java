@@ -29,29 +29,29 @@ public class UnidadTest {
     }
 
     @Test
-    public void SoldadoAtacaEnemigo() {
+    public void SoldadoAtacaEnemigo() throws AccionInvalidaException {
         SoldadoDeInfanteria soldado = new SoldadoDeInfanteria();
         Jinete jinete = new Jinete();
         Assert.assertTrue(jinete.obtenerVida() == 100);
-        soldado.realizarAccion(jinete, tablero, null);
+        soldado.realizarAccion(jinete, tablero, new ArrayList<>());
         Assert.assertTrue(jinete.obtenerVida() == 90);
         Assert.assertTrue(soldado.obtenerVida() == 100);
     }
 
     @Test
-    public void CatapultaAtacaEnemigo() throws CasilleroOcupadoException, CasilleroInvalidoException {
+    public void CatapultaAtacaEnemigo() throws CasilleroOcupadoException, CasilleroInvalidoException, AccionInvalidaException {
         Catapulta catapulta = new Catapulta();
         Jinete jinete = new Jinete();
         Coordenada coordJinete = new Coordenada(10,5);
         tablero.ubicarUnidad(jinete, coordJinete);
         Assert.assertTrue(jinete.obtenerVida() == 100);
-        catapulta.realizarAccion(jinete, tablero, null);
+        catapulta.realizarAccion(jinete, tablero, new ArrayList<>());
         Assert.assertTrue(jinete.obtenerVida() == 80);
         Assert.assertTrue(catapulta.obtenerVida() == 50);
     }
 
     @Test
-    public void CatapultaAtacaVariosEnemigosContiguos() throws CasilleroInvalidoException, CasilleroOcupadoException {
+    public void CatapultaAtacaVariosEnemigosContiguos() throws CasilleroInvalidoException, CasilleroOcupadoException, AccionInvalidaException {
         Jinete jinete = new Jinete();
         Jinete jinete2 = new Jinete();
         Curandero curandero = new Curandero();
@@ -68,14 +68,14 @@ public class UnidadTest {
         tablero.ubicarUnidad(soldado, coordenadaSoldado);
         tablero.ubicarUnidad(jinete2, coordenadaJinete2);
 
-        catapulta.realizarAccion(jinete, tablero, null);
+        catapulta.realizarAccion(jinete, tablero, new ArrayList<>());
         Assert.assertTrue(jinete.obtenerVida() == 80);
         Assert.assertTrue(soldado.obtenerVida() == 80);
         Assert.assertTrue(curandero.obtenerVida() == 55);
         Assert.assertTrue(jinete2.obtenerVida() == 80);
         Assert.assertTrue(catapulta.obtenerVida() == 50);
 
-        catapulta.realizarAccion(jinete, tablero, null);
+        catapulta.realizarAccion(jinete, tablero, new ArrayList<>());
         Assert.assertTrue(jinete.obtenerVida() == 60);
         Assert.assertTrue(soldado.obtenerVida() == 60);
         Assert.assertTrue(curandero.obtenerVida() == 35);
@@ -84,7 +84,7 @@ public class UnidadTest {
     }
 
     @Test
-    public void CataputalAtacaUnidadesEnLineaRecta() throws CasilleroInvalidoException, CasilleroOcupadoException {
+    public void CataputalAtacaUnidadesEnLineaRecta() throws CasilleroInvalidoException, CasilleroOcupadoException, AccionInvalidaException {
         Jinete jinete = new Jinete();
         Jinete jinete2 = new Jinete();
         Curandero curandero = new Curandero();
@@ -103,7 +103,7 @@ public class UnidadTest {
         tablero.ubicarUnidad(catapulta, coordenadaCatapulta);
         tablero.ubicarUnidad(soldado, coordenadaSoldado);
         tablero.ubicarUnidad(jinete2, coordenadaJinete2);
-        catapulta.realizarAccion(jinete, tablero, null);
+        catapulta.realizarAccion(jinete, tablero, new ArrayList<>());
         Assert.assertTrue(jinete.obtenerVida() == 80);
         Assert.assertTrue(soldado.obtenerVida() == 80);
         Assert.assertTrue(curandero.obtenerVida() == 55);
@@ -113,7 +113,7 @@ public class UnidadTest {
     }
 
     @Test
-    public void CatapultaAtacaYNoDaniaAEnemigosNoContiguos() throws CasilleroInvalidoException, CasilleroOcupadoException {
+    public void CatapultaAtacaYNoDaniaAEnemigosNoContiguos() throws CasilleroInvalidoException, CasilleroOcupadoException, AccionInvalidaException {
         Jinete jinete = new Jinete();
         Jinete jinete2 = new Jinete();
         Curandero curandero = new Curandero();
@@ -127,7 +127,7 @@ public class UnidadTest {
         tablero.ubicarUnidad(catapulta, coordenadaCatapulta);
         tablero.ubicarUnidad(jinete2, coordenadaJinete2);
 
-        catapulta.realizarAccion(jinete, tablero, null);
+        catapulta.realizarAccion(jinete, tablero, new ArrayList<>());
         Assert.assertTrue(jinete.obtenerVida() == 80);
         Assert.assertTrue(curandero.obtenerVida() == 55);
         Assert.assertTrue(jinete2.obtenerVida() == 100);
@@ -135,7 +135,7 @@ public class UnidadTest {
     }
 
     @Test
-    public void curanderoCuraAUnidadAliada() {
+    public void curanderoCuraAUnidadAliada() throws AccionInvalidaException {
         Curandero curandero = new Curandero();
         Jinete jinete = new Jinete();
         ArrayList<Unidad> unidades = new ArrayList<>();

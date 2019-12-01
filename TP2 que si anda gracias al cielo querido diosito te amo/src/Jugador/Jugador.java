@@ -76,7 +76,7 @@ public class Jugador {
         return true;
     }
 
-    public void mover(Movible unidadMovible, Direccion direccion) { tablero.mover(unidadMovible, direccion); }
+    public String mover(Movible unidadMovible, Direccion direccion) { return tablero.mover(unidadMovible, direccion); }
 
     public boolean estaEnLadoDelTableroCorrespondiente(Coordenada coordenada) {
         if (this.nroJugador == 1) {
@@ -93,16 +93,17 @@ public class Jugador {
 
     public String obtenerEstado() { return this.estado; }
 
-    public void realizarAccionDeUnidad(Unidad unaUnidad, Unidad otraUnidad) {
+    public String realizarAccionDeUnidad(Unidad unaUnidad, Unidad otraUnidad) {
         try {
-            accionValida(unaUnidad, otraUnidad);
+            //accionValida(unaUnidad, otraUnidad);
             unaUnidad.realizarAccion(otraUnidad, tablero, unidades);
         } catch (AccionInvalidaException e) {
-            e.getMensaje();
+            return e.getMensaje();
         }
+        return "Se realizó acción.";
     }
 
-    public boolean accionValida (Unidad unidad1, Unidad unidad2) throws AccionInvalidaException{
+    /*public boolean accionValida (Unidad unidad1, Unidad unidad2) throws AccionInvalidaException{
         if (this.unidades.contains(unidad2) && !esCurandero(unidad1)) return false;  //trató de atacar A una unidad aliada
         if (!this.unidades.contains(unidad1) && !esCurandero(unidad2)) return false; //trató de atacar CON una unidad enemiga
         if (!this.unidades.contains(unidad2) && esCurandero(unidad1)) return false; //trató de curar A unidad enemiga
@@ -110,7 +111,7 @@ public class Jugador {
         return true;
     }
 
-    public boolean esCurandero(Unidad unidad) { return (unidad instanceof Curandero); }
+    public boolean esCurandero(Unidad unidad) { return (unidad instanceof Curandero); }*/
 
     public void asignarTurno(boolean turno){
         this.esTurno = turno;
@@ -120,7 +121,7 @@ public class Jugador {
         return this.esTurno;
     }
 
-    public Unidad obtenerUltimaUnidad() {return this.unidades.get(this.unidades.size() -1); }
+    /*public Unidad obtenerUltimaUnidad() {return this.unidades.get(this.unidades.size() -1); }*/
 
     public void checkearUnidadesMuertas() {
         for(Iterator<Unidad> iterador = unidades.iterator(); iterador.hasNext();){

@@ -44,30 +44,28 @@ public class ControladorFlujoJuego {
         if(jugador.esTurno()) {
             if (tablero.obtenerCasillero(coordenada).estaOcupado()) {
                 System.out.println("Se esta realizando una accion");
-                jugador.realizarAccionDeUnidad(seleccionada, tablero.obtenerCasillero(coordenada).obtenerUnidad());
+                String mensaje = jugador.realizarAccionDeUnidad(seleccionada, tablero.obtenerCasillero(coordenada).obtenerUnidad());
                 jugador1.checkearUnidadesMuertas();
                 jugador2.checkearUnidadesMuertas();
                 jugador1.actualizarEstadoJugador();
                 jugador2.actualizarEstadoJugador();
                 updateEstadoDeJuego(jugador1, jugador2);
                 seleccionarUnidad(null);
+                cambiarLabelEstadoDeJuego(mensaje);
                 return;
             }
             if(jugador.obtenerListaUnidades().contains(seleccionada)) {
-                if (coordenada.compararCoordenada(seleccionada.obtenerCoordenada())) {
-                    System.out.println("Movete a otro lugar!");
-                    seleccionarUnidad(null);
-                    return;
-                }
                 if (seleccionada instanceof Catapulta) {
                     System.out.println("No podes mover una catapulta!");
+                    cambiarLabelEstadoDeJuego("No puede mover una catapulta. Perdió el turno.");
                     seleccionarUnidad(null);
                     return;
                 }
-
-                jugador.mover((Movible) seleccionada, Direccion.obtenerDireccionSegunCoordenadas(seleccionada.obtenerCoordenada(), coordenada));
+                String mensaje = jugador.mover((Movible) seleccionada, Direccion.obtenerDireccionSegunCoordenadas(seleccionada.obtenerCoordenada(), coordenada));
+                cambiarLabelEstadoDeJuego(mensaje);
             }
             else{
+                cambiarLabelEstadoDeJuego("No puede mover una unidad enemiga. Perdió el turno.");
                 System.out.println("No podes mover una unidad enemiga");
             }
             seleccionarUnidad(null);
@@ -124,15 +122,19 @@ public class ControladorFlujoJuego {
         return this.jugando;
     }
 
-    public void deshabilitarBotonesUnidadDeJugador(Jugador jugador) {
-        this.controladorPrincipal.deshabilitarBotonesUnidadDeJugador(jugador);
-    }
-
     public void habilitarBotonesUnidadDeJugador(Jugador jugador) {
         this.controladorPrincipal.habilitarBotonesUnidadDeJugador(jugador);
     }
 
     public void cambiarAPantallaDeJuego() {
         this.controladorPrincipal.PantallaDeJuego();
+    }
+
+    public void cambiarLabelEstadoDeJuego(String mensaje) {
+        this.controladorPrincipal.cambiarLabelEstadoDeJuego(mensaje);
+    }
+
+    public void cambiarLabelTurno(Jugador jugador) {
+        this.controladorPrincipal.cambiarLabelTurno(jugador);
     }
 }

@@ -7,7 +7,8 @@ public class CasilleroInvalidoException extends Exception {
         super(ex);
     };
 
-    public void getMensaje(){
+    /*public void getMensaje(){
         System.out.println(mensaje);
-    }
+    }*/
+    public String getMensaje() { return mensaje; }
 }

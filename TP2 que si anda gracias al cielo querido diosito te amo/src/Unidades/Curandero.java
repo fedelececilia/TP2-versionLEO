@@ -1,5 +1,6 @@
 package Unidades;
 
+import Excepciones.AccionInvalidaException;
 import Tablero.*;
 import java.util.ArrayList;
 
@@ -11,8 +12,11 @@ public class Curandero extends Movible {
     }
 
     @Override
-    public void realizarAccion(Unidad unidad, Tablero tablero, ArrayList<Unidad> unidades) {
+    public void realizarAccion(Unidad unidad, Tablero tablero, ArrayList<Unidad> unidades) throws AccionInvalidaException {
         if(unidades.contains(unidad)) // Cura a la unidad sii pertenece a la lista de unidades del jugador
             unidad.recibirCura(CURACION);
+        else {
+            throw new AccionInvalidaException();
+        }
     }
 }

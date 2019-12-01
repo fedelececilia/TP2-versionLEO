@@ -45,11 +45,11 @@ public class Tablero extends Observable {
         }
     }
 
-    public void mover(Movible unidadMovible, Direccion direccion) {
+    public String mover(Movible unidadMovible, Direccion direccion) {
         //calcular la nueva Tablero.Coordenada
         Coordenada coordenadaActual = unidadMovible.obtenerCoordenada();
         try {
-            if(direccion == null) return;
+            if(direccion == null) return "El casillero al que se movió no es contiguo.";
             Coordenada nuevaCoordenada = coordenadaActual.desplazar(direccion);
             ubicarUnidad(unidadMovible, nuevaCoordenada);
             Casillero casilleroActual = obtenerCasillero(coordenadaActual);
@@ -58,11 +58,12 @@ public class Tablero extends Observable {
             notificarObservadores();
         }
         catch (CasilleroOcupadoException e) {
-            e.getMensaje();
+            return e.getMensaje();
         }
         catch (CasilleroInvalidoException e) {
-            e.getMensaje();
+            return e.getMensaje();
         }
+        return ("La unidad " + unidadMovible.getClass().getSimpleName() + " se movió");
     }
 
     public ArrayList<Unidad> obtenerUnidadesContiguas(Unidad unidad) {

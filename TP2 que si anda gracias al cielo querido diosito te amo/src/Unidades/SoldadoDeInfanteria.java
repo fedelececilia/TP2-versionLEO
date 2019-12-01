@@ -1,5 +1,6 @@
 package Unidades;
 
+import Excepciones.AccionInvalidaException;
 import Tablero.*;
 import java.util.ArrayList;
 
@@ -13,9 +14,13 @@ public class SoldadoDeInfanteria extends Movible {
     }
 
     @Override
-    public void realizarAccion(Unidad unidadEnemiga, Tablero tablero, ArrayList<Unidad> unidades) {
-        int danio = obtenerDanioDeArma();
-        unidadEnemiga.recibirDanio(danio);
+    public void realizarAccion(Unidad unidadEnemiga, Tablero tablero, ArrayList<Unidad> unidades) throws AccionInvalidaException {
+        if (!unidades.contains(unidadEnemiga)) {
+            int danio = obtenerDanioDeArma();
+            unidadEnemiga.recibirDanio(danio);
+        } else {
+            throw new AccionInvalidaException();
+        }
     }
 
     public int obtenerDanioDeArma() {

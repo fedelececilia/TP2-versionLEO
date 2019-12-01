@@ -1,4 +1,5 @@
 package Unidades;
+import Excepciones.AccionInvalidaException;
 import Tablero.*;
 
 import java.util.ArrayList;
@@ -14,12 +15,16 @@ public class Catapulta extends Unidad {
     }
 
     @Override
-    public void realizarAccion(Unidad unidadEnemiga, Tablero tablero, ArrayList<Unidad> unidades) {
-        int danio = obtenerDanioDeArma();
-        Set<Unidad> atacadas = new HashSet<>();
-        unidadEnemiga.recibirDanio(danio);
-        atacadas.add(unidadEnemiga);
-        atacarUnidadesContiguas(tablero, atacadas, unidadEnemiga);
+    public void realizarAccion(Unidad unidadEnemiga, Tablero tablero, ArrayList<Unidad> unidades) throws AccionInvalidaException {
+        if (!unidades.contains(unidadEnemiga)) {
+            int danio = obtenerDanioDeArma();
+            Set<Unidad> atacadas = new HashSet<>();
+            unidadEnemiga.recibirDanio(danio);
+            atacadas.add(unidadEnemiga);
+            atacarUnidadesContiguas(tablero, atacadas, unidadEnemiga);
+        } else {
+            throw new AccionInvalidaException();
+        }
     }
 
     public void atacarUnidadesContiguas(Tablero tablero, Set<Unidad> atacadas, Unidad unidadEnemiga) {

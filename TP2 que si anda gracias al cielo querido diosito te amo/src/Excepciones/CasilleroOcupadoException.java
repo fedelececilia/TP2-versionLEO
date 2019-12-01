@@ -7,7 +7,8 @@ public class CasilleroOcupadoException extends Exception {
 
     }
 
-    public void getMensaje(){
+    /*public void getMensaje(){
         System.out.println(mensaje);
-    }
+    }*/
+    public String getMensaje() { return mensaje; }
 }
