@@ -52,6 +52,7 @@ public class ControladorFlujoJuego {
                 updateEstadoDeJuego(jugador1, jugador2);
                 seleccionarUnidad(null);
                 cambiarLabelEstadoDeJuego(mensaje);
+                controladorPrincipal.cambiarLabelInfoJugador(jugador, seleccionada, true);
                 return;
             }
             if(jugador.obtenerListaUnidades().contains(seleccionada)) {
@@ -63,6 +64,7 @@ public class ControladorFlujoJuego {
                 }
                 String mensaje = jugador.mover((Movible) seleccionada, Direccion.obtenerDireccionSegunCoordenadas(seleccionada.obtenerCoordenada(), coordenada));
                 cambiarLabelEstadoDeJuego(mensaje);
+                controladorPrincipal.cambiarLabelInfoJugador(jugador, seleccionada, false);
             }
             else{
                 cambiarLabelEstadoDeJuego("No puede mover una unidad enemiga. Perdió el turno.");
@@ -81,11 +83,14 @@ public class ControladorFlujoJuego {
         return batallon;
     }
 
-    public void moverBatallon(Coordenada coordenada) {
+    public void moverBatallon(Coordenada coordenada, Jugador jugador) {
         Batallon nuevo = null;
         try {
             nuevo = new Batallon(batallon.get(0),batallon.get(1), batallon.get(2));
             nuevo.mover(tablero,Direccion.obtenerDireccionSegunCoordenadas(batallon.get(1).obtenerCoordenada(), coordenada));
+            controladorPrincipal.cambiarLabelInfoJugador(jugador, batallon.get(0), false);
+            controladorPrincipal.cambiarLabelInfoJugador(jugador, batallon.get(1), false);
+            controladorPrincipal.cambiarLabelInfoJugador(jugador, batallon.get(2), false);
         } catch (BatallonInvalidoException e) {
             e.getMessage();
         }

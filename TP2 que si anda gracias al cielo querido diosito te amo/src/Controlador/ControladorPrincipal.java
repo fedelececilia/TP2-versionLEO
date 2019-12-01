@@ -15,6 +15,9 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import vista.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class ControladorPrincipal {
 
     private Stage stage;
@@ -24,6 +27,8 @@ public class ControladorPrincipal {
     private Label labelEstadoDeJuego;
     private SeleccionDeUnidades seleccionDeUnidades;
     private TableroVista tableroVista;
+    private HashMap<Unidad, Label> infoUnidadesJugador1;
+    private HashMap<Unidad, Label> infoUnidadesJugador2;
 
     public ControladorPrincipal(Stage stage){
         this.stage = stage;
@@ -108,9 +113,9 @@ public class ControladorPrincipal {
         contenedorSuperior.getChildren().addAll(botonSalir, labelTurno, labelEstadoDeJuego);
 
         Label puntajeJugador1 = new Label("Puntaje " + jugador1.obtenerNombre() + ": " + jugador1.obtenerPuntos());
-        puntajeJugador1.setStyle("-fx-text-fill:WHITE;");
+        puntajeJugador1.setStyle("-fx-text-fill:#fc9808;");
         Label puntajeJugador2 = new Label("Puntaje " + jugador2.obtenerNombre() + ": " + jugador2.obtenerPuntos());
-        puntajeJugador2.setStyle("-fx-text-fill:WHITE;");
+        puntajeJugador2.setStyle("-fx-text-fill:#6ba3e4;");
         ControladorFlujoJuego controladorFlujoJuego = new ControladorFlujoJuego(jugador1, jugador2, tablero, this);
         this.seleccionDeUnidades = new SeleccionDeUnidades(jugador1, jugador2, this, puntajeJugador1, puntajeJugador2, controladorFlujoJuego);
         seleccionDeUnidades.deshabilitarBotonesUnidadDeJugador(jugador2);
@@ -156,17 +161,46 @@ public class ControladorPrincipal {
         contenedorSuperior.setAlignment(Pos.CENTER_LEFT);
         contenedorSuperior.getChildren().addAll(botonSalir, labelTurno, labelEstadoDeJuego);
 
-        Label labelInstrucciones = new Label();
-        labelInstrucciones.setMaxWidth(300);
-        labelInstrucciones.setStyle("-fx-text-fill:WHITE;");
-        labelInstrucciones.setTextAlignment(TextAlignment.JUSTIFY);
-        labelInstrucciones.setText("El jugador de turno selecciona una unidad, que puede" +
-                "moverse o realizar su acción correspondiente.");
+        this.infoUnidadesJugador1 = new HashMap<>();
+        Label nombreJugador1 = new Label(jugador1.obtenerNombre());
+        nombreJugador1.setStyle("-fx-text-fill:#fc9808;");
+        ArrayList<Unidad> unidadesJugador1 = jugador1.obtenerListaUnidades();
+        for (Unidad unidad : unidadesJugador1) {
+            Label labelUnidad = new Label();
+            labelUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
+            labelUnidad.setStyle("-fx-text-fill:WHITE;");
+            infoUnidadesJugador1.put(unidad, labelUnidad);
+        }
+
+        VBox contenedorInfoJugador1 = new VBox(10);
+        contenedorInfoJugador1.setAlignment(Pos.CENTER);
+        contenedorInfoJugador1.getChildren().add(nombreJugador1);
+        for (Label label : infoUnidadesJugador1.values()) {
+            contenedorInfoJugador1.getChildren().add(label);
+        }
+
+        this.infoUnidadesJugador2 = new HashMap<>();
+        Label nombreJugador2 = new Label(jugador2.obtenerNombre());
+        nombreJugador2.setStyle("-fx-text-fill:#6ba3e4;");
+        ArrayList<Unidad> unidadesJugador2 = jugador2.obtenerListaUnidades();
+        for (Unidad unidad : unidadesJugador2) {
+            Label labelUnidad = new Label();
+            labelUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
+            labelUnidad.setStyle("-fx-text-fill:WHITE;");
+            infoUnidadesJugador2.put(unidad, labelUnidad);
+        }
+
+        VBox contenedorInfoJugador2 = new VBox(10);
+        contenedorInfoJugador2.setAlignment(Pos.CENTER);
+        contenedorInfoJugador2.getChildren().add(nombreJugador2);
+        for (Label label : infoUnidadesJugador2.values()) {
+            contenedorInfoJugador2.getChildren().add(label);
+        }
 
         HBox contenedorPrincipal = new HBox(30);
         contenedorPrincipal.setMinHeight(700);
         contenedorPrincipal.setAlignment(Pos.CENTER);
-        contenedorPrincipal.getChildren().addAll(this.tableroVista, labelInstrucciones);
+        contenedorPrincipal.getChildren().addAll(contenedorInfoJugador1, this.tableroVista, contenedorInfoJugador2);
 
         VBox canvas = new VBox();
         canvas.getChildren().addAll(contenedorSuperior, contenedorPrincipal);
@@ -187,11 +221,27 @@ public class ControladorPrincipal {
         this.labelEstadoDeJuego.setText(mensaje);
     }
 
-    public void deshabilitarBotonesUnidadDeJugador(Jugador jugador) {
-        this.seleccionDeUnidades.deshabilitarBotonesUnidadDeJugador(jugador);
-    }
-
     public void habilitarBotonesUnidadDeJugador(Jugador jugador) {
         this.seleccionDeUnidades.habilitarBotonesUnidadDeJugador(jugador);
+    }
+
+    public void cambiarLabelInfoJugador(Jugador jugador, Unidad unidad, boolean esAtaque) {
+        if (jugador.obtenerNumeroJugador() == 1) {
+            if (!esAtaque) {
+                Label labelInfoUnidad = infoUnidadesJugador1.get(unidad);
+                labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
+            } else {
+                Label labelInfoUnidad = infoUnidadesJugador2.get(unidad);
+                labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
+            }
+        } else {
+            if (!esAtaque) {
+                Label labelInfoUnidad = infoUnidadesJugador2.get(unidad);
+                labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
+            } else {
+                Label labelInfoUnidad = infoUnidadesJugador1.get(unidad);
+                labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
+            }
+        }
     }
 }

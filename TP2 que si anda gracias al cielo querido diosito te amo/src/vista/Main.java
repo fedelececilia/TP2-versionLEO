@@ -21,7 +21,7 @@ public class Main extends Application {
         stage.setMinWidth(1024);
         stage.setMinHeight(720);
         //stage.setFullScreen(true);
-        stage.setMaximized(true);
+        //stage.setMaximized(true);
         stage.setScene(controladorPrincipal.MenuInicio());
         stage.show();
     }

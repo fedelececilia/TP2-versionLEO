@@ -22,8 +22,13 @@ public class TableroVista extends Group {
             for(int j = 0; j < alto; j++){
                 Coordenada coordenada = new Coordenada(i+1, j+1);
                 CasilleroVista nuevo = new CasilleroVista(tablero.obtenerCasillero(coordenada), jugador1, jugador2, coordenada, controlador);
-                nuevo.setStyle("    -fx-background-color: black, white ;" +
-                        "-fx-background-insets: 0, 0 1 1 0 ;");
+                if (i < 10) {
+                    nuevo.setStyle("    -fx-background-color: black, #fcd18b ;" +
+                            "-fx-background-insets: 0, 0 1 1 0 ;");
+                } else if (i >= 10) {
+                    nuevo.setStyle("    -fx-background-color: black, #a3cbf8 ;" +
+                            "-fx-background-insets: 0, 0 1 1 0 ;");
+                }
                 tablero.obtenerCasillero(coordenada).agregarObservador(nuevo);
                 nuevo.setPrefSize(30,30);
                 casilleros[i][j] = nuevo;

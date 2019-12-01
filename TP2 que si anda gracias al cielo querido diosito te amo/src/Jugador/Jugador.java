@@ -95,23 +95,12 @@ public class Jugador {
 
     public String realizarAccionDeUnidad(Unidad unaUnidad, Unidad otraUnidad) {
         try {
-            //accionValida(unaUnidad, otraUnidad);
             unaUnidad.realizarAccion(otraUnidad, tablero, unidades);
         } catch (AccionInvalidaException e) {
             return e.getMensaje();
         }
         return "Se realizó acción.";
     }
-
-    /*public boolean accionValida (Unidad unidad1, Unidad unidad2) throws AccionInvalidaException{
-        if (this.unidades.contains(unidad2) && !esCurandero(unidad1)) return false;  //trató de atacar A una unidad aliada
-        if (!this.unidades.contains(unidad1) && !esCurandero(unidad2)) return false; //trató de atacar CON una unidad enemiga
-        if (!this.unidades.contains(unidad2) && esCurandero(unidad1)) return false; //trató de curar A unidad enemiga
-        if (!this.unidades.contains(unidad1) && esCurandero(unidad2)) return false; // trato de curar CON un curandero enemigo
-        return true;
-    }
-
-    public boolean esCurandero(Unidad unidad) { return (unidad instanceof Curandero); }*/
 
     public void asignarTurno(boolean turno){
         this.esTurno = turno;
@@ -120,8 +109,6 @@ public class Jugador {
     public boolean esTurno(){
         return this.esTurno;
     }
-
-    /*public Unidad obtenerUltimaUnidad() {return this.unidades.get(this.unidades.size() -1); }*/
 
     public void checkearUnidadesMuertas() {
         for(Iterator<Unidad> iterador = unidades.iterator(); iterador.hasNext();){

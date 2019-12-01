@@ -33,7 +33,7 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
                     return;
                 }
                 else if(controlador.obtenerListaBatallon().size() == 3){
-                    controlador.moverBatallon(coordenada);
+                    controlador.moverBatallon(coordenada, jugador1);
                     jugador1.asignarTurno(false);
                     jugador2.asignarTurno(true);
                     this.controlador.cambiarLabelTurno(jugador2);
@@ -62,7 +62,7 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
                     return;
                 }
                 else if(controlador.obtenerListaBatallon().size() == 3){
-                    controlador.moverBatallon(coordenada);
+                    controlador.moverBatallon(coordenada, jugador2);
                     jugador1.asignarTurno(true);
                     jugador2.asignarTurno(false);
                     this.controlador.cambiarLabelTurno(jugador1);
