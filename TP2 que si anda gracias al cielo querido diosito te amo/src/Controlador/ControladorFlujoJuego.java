@@ -19,6 +19,7 @@ public class ControladorFlujoJuego {
     private Jugador jugador2;
     private Tablero tablero;
     private ArrayList<Movible> batallon;
+    private Unidad ultimaUnidadComprada;
 
     public ControladorFlujoJuego(Jugador jugador1, Jugador jugador2, Tablero tablero){
         seleccionada = null;
@@ -103,5 +104,17 @@ public class ControladorFlujoJuego {
             System.out.println("Perdio el jugador 2");
             System.exit(0);
         }
+    }
+
+    public void cambiarUltimaUnidadComprada(Unidad ultimaUnidadComprada) {
+        this.ultimaUnidadComprada = ultimaUnidadComprada;
+    }
+
+    public Unidad obtenerUltimaUnidadComprada() {
+        return this.ultimaUnidadComprada;
+    }
+
+    public boolean obtenerEstadoJuego() {
+        return this.jugando;
     }
 }

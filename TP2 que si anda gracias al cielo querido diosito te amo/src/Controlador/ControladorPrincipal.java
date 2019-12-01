@@ -19,7 +19,6 @@ public class ControladorPrincipal {
     private Stage stage;
     private Jugador jugador1;
     private Jugador jugador2;
-    private Unidad ultimaUnidadComprada;
     private Label labelTurno;
     private Label labelEstadoDeJuego;
 
@@ -109,7 +108,8 @@ public class ControladorPrincipal {
         puntajeJugador1.setStyle("-fx-text-fill:WHITE;");
         Label puntajeJugador2 = new Label("Puntaje " + jugador2.obtenerNombre() + ": " + jugador2.obtenerPuntos());
         puntajeJugador2.setStyle("-fx-text-fill:WHITE;");
-        SeleccionDeUnidades seleccionDeUnidades = new SeleccionDeUnidades(jugador1, jugador2, this, puntajeJugador1, puntajeJugador2);
+        ControladorFlujoJuego controladorFlujoJuego = new ControladorFlujoJuego(jugador1, jugador2, tablero);
+        SeleccionDeUnidades seleccionDeUnidades = new SeleccionDeUnidades(jugador1, jugador2, this, puntajeJugador1, puntajeJugador2, controladorFlujoJuego);
 
         VBox contenedorUnidadesPosibles1 = new VBox(20);
         contenedorUnidadesPosibles1.setAlignment(Pos.CENTER);
@@ -118,7 +118,6 @@ public class ControladorPrincipal {
             contenedorUnidadesPosibles1.getChildren().add(boton);
         }
 
-        ControladorFlujoJuego controladorFlujoJuego = new ControladorFlujoJuego(jugador1, jugador2, tablero);
         TableroVista tableroVista = new TableroVista(tablero, jugador1, jugador2, controladorFlujoJuego);
 
         VBox contenedorUnidadesPosibles2 = new VBox(20);
@@ -142,9 +141,6 @@ public class ControladorPrincipal {
         return new Scene(stackPane);
     }
 
-    public void cambiarUltimaUnidadComprada(Unidad ultimaUnidadComprada) {
-        this.ultimaUnidadComprada = ultimaUnidadComprada;
-    }
 
     public void cambiarLabelTurno(Jugador jugador) {
         this.labelTurno.setText("Turno de: " + jugador.obtenerNombre());

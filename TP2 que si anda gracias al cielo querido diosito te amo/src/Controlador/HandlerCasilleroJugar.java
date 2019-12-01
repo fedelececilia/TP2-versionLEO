@@ -4,6 +4,7 @@ import Jugador.Jugador;
 import Tablero.Casillero;
 import Tablero.Coordenada;
 import Unidades.SoldadoDeInfanteria;
+import Unidades.Unidad;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -23,53 +24,76 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
         this.coordenada = coordenada;
     }
 
-    @Override
-    public void handle(MouseEvent mouseEvent) {
-        if(jugador1.esTurno()) {
-            if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
-                if(casillero.obtenerUnidad() instanceof SoldadoDeInfanteria && jugador1.obtenerListaUnidades().contains(casillero.obtenerUnidad())){
-                    controlador.guardarABatallon(casillero.obtenerUnidad());
-                    return;
-                }
-                else if(controlador.obtenerListaBatallon().size() == 3){
-                    controlador.moverBatallon(coordenada);
-                    jugador1.asignarTurno(false);
-                    jugador2.asignarTurno(true);
-                    return;
-                }
+    public void handleJugar(MouseEvent mouseEvent){if(jugador1.esTurno()) {
+        if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
+            if(casillero.obtenerUnidad() instanceof SoldadoDeInfanteria && jugador1.obtenerListaUnidades().contains(casillero.obtenerUnidad())){
+                controlador.guardarABatallon(casillero.obtenerUnidad());
+                return;
             }
-            else{
-                if (controlador.obtenerSeleccionada() == null && jugador1.obtenerListaUnidades().contains(casillero.obtenerUnidad())) {
-                    controlador.seleccionarUnidad(casillero.obtenerUnidad());
-                }
-                else if(jugador1.obtenerListaUnidades().contains(controlador.obtenerSeleccionada())){
-                    controlador.accionUnidad(coordenada, jugador1);
-                    jugador1.asignarTurno(false);
-                    jugador2.asignarTurno(true);
-                }
+            else if(controlador.obtenerListaBatallon().size() == 3){
+                controlador.moverBatallon(coordenada);
+                jugador1.asignarTurno(false);
+                jugador2.asignarTurno(true);
+                return;
             }
         }
-        else if(jugador2.esTurno()) {
-            if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
-                if(casillero.obtenerUnidad() instanceof SoldadoDeInfanteria && jugador2.obtenerListaUnidades().contains(casillero.obtenerUnidad())){
-                    controlador.guardarABatallon(casillero.obtenerUnidad());
-                    return;
-                }
-                else if(controlador.obtenerListaBatallon().size() == 3){
-                    controlador.moverBatallon(coordenada);
-                    jugador1.asignarTurno(true);
-                    jugador2.asignarTurno(false);
-                    return;
-                }
-            }
-            if (controlador.obtenerSeleccionada() == null && jugador2.obtenerListaUnidades().contains(casillero.obtenerUnidad())) {
+        else{
+            if (controlador.obtenerSeleccionada() == null && jugador1.obtenerListaUnidades().contains(casillero.obtenerUnidad())) {
                 controlador.seleccionarUnidad(casillero.obtenerUnidad());
             }
-            else if(jugador2.obtenerListaUnidades().contains(controlador.obtenerSeleccionada())){
-                controlador.accionUnidad(coordenada, jugador2);
+            else if(jugador1.obtenerListaUnidades().contains(controlador.obtenerSeleccionada())){
+                controlador.accionUnidad(coordenada, jugador1);
+                jugador1.asignarTurno(false);
+                jugador2.asignarTurno(true);
+            }
+        }
+    }
+    else if(jugador2.esTurno()) {
+        if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
+            if(casillero.obtenerUnidad() instanceof SoldadoDeInfanteria && jugador2.obtenerListaUnidades().contains(casillero.obtenerUnidad())){
+                controlador.guardarABatallon(casillero.obtenerUnidad());
+                return;
+            }
+            else if(controlador.obtenerListaBatallon().size() == 3){
+                controlador.moverBatallon(coordenada);
                 jugador1.asignarTurno(true);
                 jugador2.asignarTurno(false);
+                return;
             }
+        }
+        if (controlador.obtenerSeleccionada() == null && jugador2.obtenerListaUnidades().contains(casillero.obtenerUnidad())) {
+            controlador.seleccionarUnidad(casillero.obtenerUnidad());
+        }
+        else if(jugador2.obtenerListaUnidades().contains(controlador.obtenerSeleccionada())){
+            controlador.accionUnidad(coordenada, jugador2);
+            jugador1.asignarTurno(true);
+            jugador2.asignarTurno(false);
+        }
+    }
+    }
+
+    public void handleUbicar(Jugador jugador1, Jugador jugador2){
+        Unidad ultimaComprada = controlador.obtenerUltimaUnidadComprada();
+        if(jugador1.esTurno()){
+            jugador1.ubicarUnidad(ultimaComprada, coordenada);
+            jugador1.asignarTurno(false);
+            jugador2.asignarTurno(true);
+        }
+        else {
+            jugador2.ubicarUnidad(ultimaComprada, coordenada);
+            jugador1.asignarTurno(true);
+            jugador2.asignarTurno(false);
+        }
+        controlador.cambiarUltimaUnidadComprada(null);
+    }
+
+    @Override
+    public void handle(MouseEvent mouseEvent) {
+        if(controlador.obtenerEstadoJuego()){ //Si todavia no estamos jugando, estamos en la seleccion de unidades
+            handleJugar(mouseEvent);
+        }
+        else{
+            handleUbicar(jugador1, jugador2);
         }
     }
 }

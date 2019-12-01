@@ -1,5 +1,6 @@
 package vista;
 
+import Controlador.ControladorFlujoJuego;
 import Controlador.ControladorPrincipal;
 import Jugador.Jugador;
 import Unidades.Unidad;
@@ -11,6 +12,7 @@ public class SeleccionDeUnidades {
     Jugador jugador1;
     Jugador jugador2;
     ControladorPrincipal controladorPrincipal;
+    ControladorFlujoJuego controladorFlujoJuego;
     Label puntajeJugador1;
     Label puntajeJugador2;
 
@@ -23,22 +25,23 @@ public class SeleccionDeUnidades {
     BotonUnidad perroCurandero;
     BotonUnidad perroCatapulta;
 
-    public SeleccionDeUnidades(Jugador jugador1, Jugador jugador2, ControladorPrincipal controladorPrincipal, Label puntajeJugador1, Label puntajeJugador2) {
+    public SeleccionDeUnidades(Jugador jugador1, Jugador jugador2, ControladorPrincipal controladorPrincipal, Label puntajeJugador1, Label puntajeJugador2, ControladorFlujoJuego controladorFlujoJuego) {
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
         this.controladorPrincipal = controladorPrincipal;
+        this.controladorFlujoJuego = controladorFlujoJuego;
         this.puntajeJugador1 = puntajeJugador1;
         this.puntajeJugador2 = puntajeJugador2;
         jugador1.asignarTurno(true);
         jugador2.asignarTurno(false);
-        this.gatoSoldado = new BotonUnidad("imagenes/gato_soldado_precio.png", Unidad.factoryUnidad("soldado"), jugador1, this);
-        this.gatoJinete = new BotonUnidad("imagenes/gato_jinete_precio.png",Unidad.factoryUnidad("jinete"), jugador1, this);
-        this.gatoCurandero = new BotonUnidad("imagenes/gato_curandero_precio.png", Unidad.factoryUnidad("curandero"), jugador1, this);
-        this.gatoCatapulta = new BotonUnidad("imagenes/gato_catapulta_precio.png", Unidad.factoryUnidad("catapulta"), jugador1, this);
-        this.perroSoldado = new BotonUnidad("imagenes/perro_soldado_precio.png", Unidad.factoryUnidad("soldado"), jugador2, this);
-        this.perroJinete = new BotonUnidad("imagenes/perro_jinete_precio.png", Unidad.factoryUnidad("jinete"), jugador2, this);
-        this.perroCurandero = new BotonUnidad("imagenes/perro_curandero_precio.png", Unidad.factoryUnidad("curandero"), jugador2, this);
-        this.perroCatapulta = new BotonUnidad("imagenes/perro_catapulta_precio.png", Unidad.factoryUnidad("catapulta"), jugador2, this);
+        this.gatoSoldado = new BotonUnidad("imagenes/gato_soldado_precio.png", Unidad.factoryUnidad("soldado"), jugador1, jugador2, this);
+        this.gatoJinete = new BotonUnidad("imagenes/gato_jinete_precio.png",Unidad.factoryUnidad("jinete"), jugador1, jugador2, this);
+        this.gatoCurandero = new BotonUnidad("imagenes/gato_curandero_precio.png", Unidad.factoryUnidad("curandero"), jugador1, jugador2, this);
+        this.gatoCatapulta = new BotonUnidad("imagenes/gato_catapulta_precio.png", Unidad.factoryUnidad("catapulta"), jugador1, jugador2, this);
+        this.perroSoldado = new BotonUnidad("imagenes/perro_soldado_precio.png", Unidad.factoryUnidad("soldado"), jugador2, jugador1, this);
+        this.perroJinete = new BotonUnidad("imagenes/perro_jinete_precio.png", Unidad.factoryUnidad("jinete"), jugador2, jugador1, this);
+        this.perroCurandero = new BotonUnidad("imagenes/perro_curandero_precio.png", Unidad.factoryUnidad("curandero"), jugador2, jugador1, this);
+        this.perroCatapulta = new BotonUnidad("imagenes/perro_catapulta_precio.png", Unidad.factoryUnidad("catapulta"), jugador2, jugador1, this);
     }
 
     public ArrayList<BotonUnidad> unidadesPosiblesJugador1() { //VER SI ESTOY INSTANCIANDO UNIDAD O EN ALGÚN LUGAR TIENE QUE APARECER new();
@@ -60,7 +63,7 @@ public class SeleccionDeUnidades {
     }
 
     public void cambiarUltimaUnidadComprada(Unidad ultimaUnidadComprada) {
-        this.controladorPrincipal.cambiarUltimaUnidadComprada(ultimaUnidadComprada);
+        this.controladorFlujoJuego.cambiarUltimaUnidadComprada(ultimaUnidadComprada);
     }
 
     public void cambiarLabelEstadoDeJuego(String mensaje) {
@@ -72,6 +75,40 @@ public class SeleccionDeUnidades {
             this.puntajeJugador1.setText("Puntaje " + jugador.obtenerNombre() + ": " + jugador.obtenerPuntos());
         } else {
             this.puntajeJugador2.setText("Puntaje " + jugador.obtenerNombre() + ": " + jugador.obtenerPuntos());
+        }
+    }
+
+    public void deshabilitarBotonesUnidadDeJugador(Jugador jugador) {
+        if (jugador.obtenerNumeroJugador() == 1) {
+            for (BotonUnidad boton : unidadesPosiblesJugador1()){
+                boton.setDisable(true);
+            }
+        } else {
+            for (BotonUnidad boton : unidadesPosiblesJugador2()){
+                boton.setDisable(true);
+            }
+        }
+    }
+
+    public void habilitarBotonesUnidadDeJugador(Jugador jugador) {
+        if (jugador.obtenerNumeroJugador() == 1) {
+            int puntosJugador1 = jugador1.obtenerPuntos();
+            for (BotonUnidad boton : unidadesPosiblesJugador1()){
+                if (boton.obtenerUnidad().obtenerCosto() <= puntosJugador1) {
+                    boton.setDisable(false);
+                } else {
+                    boton.setDisable(true);
+                }
+            }
+        } else {
+            int puntosJugador2 = jugador2.obtenerPuntos();
+            for (BotonUnidad boton : unidadesPosiblesJugador2()){
+                if (boton.obtenerUnidad().obtenerCosto() <= puntosJugador2) {
+                    boton.setDisable(false);
+                } else {
+                    boton.setDisable(true);
+                }
+            }
         }
     }
 

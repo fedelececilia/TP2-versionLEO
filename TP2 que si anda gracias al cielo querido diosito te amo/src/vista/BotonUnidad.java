@@ -12,9 +12,11 @@ import javafx.scene.image.ImageView;
 public class BotonUnidad extends Button{
 
     Image imagen;
+    Unidad unidad;
 
-    public BotonUnidad(String imagenRuta, Unidad unidad, Jugador jugador, SeleccionDeUnidades seleccionDeUnidades){
+    public BotonUnidad(String imagenRuta, Unidad unidad, Jugador jugadorDeTurno, Jugador jugadorSiguiente, SeleccionDeUnidades seleccionDeUnidades){
         super();
+        this.unidad = unidad;
         this.setPrefSize(100,100);
         imagen = new Image(getClass().getResourceAsStream(imagenRuta), 100, 100, false, false);
         ImageView imageView = new ImageView(imagen);
@@ -22,16 +24,21 @@ public class BotonUnidad extends Button{
         this.setAlignment(Pos.CENTER);
         this.setOnAction(MouseEvent -> {
             try {
-                jugador.comprar(unidad);
+                jugadorDeTurno.comprar(unidad);
                 System.out.println("Compró la unidad");
                 seleccionDeUnidades.cambiarUltimaUnidadComprada(unidad);
                 seleccionDeUnidades.cambiarLabelEstadoDeJuego("Ubique la unidad " + unidad.getClass().getSimpleName());
-                seleccionDeUnidades.cambiarLabelPuntajeJugador(jugador);
-                // BLOQUEAR LOS BOTONES DE ESTE JUGADOR LUEGO DE COMPRAR
+                seleccionDeUnidades.cambiarLabelPuntajeJugador(jugadorDeTurno);
+                seleccionDeUnidades.deshabilitarBotonesUnidadDeJugador(jugadorDeTurno);
+                seleccionDeUnidades.habilitarBotonesUnidadDeJugador(jugadorSiguiente);
             } catch (PuntosInsuficientesException e) {
                 // LA IDEA ES QUE NUNCA LLEGUE ACÁ PORQUE SE BLOQUEAN LOS BOTONES
                 e.printStackTrace();
             }
         });
+    }
+
+    public Unidad obtenerUnidad() {
+        return this.unidad;
     }
 }

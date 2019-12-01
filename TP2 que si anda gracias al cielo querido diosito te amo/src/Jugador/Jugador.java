@@ -135,5 +135,9 @@ public class Jugador {
     public void actualizarEstadoJugador(){
         if (unidades.size() == 0) this.estado = "PERDEDOR";
     }
+
+    public int obtenerNumeroJugador() {
+        return nroJugador;
+    }
 }
 
