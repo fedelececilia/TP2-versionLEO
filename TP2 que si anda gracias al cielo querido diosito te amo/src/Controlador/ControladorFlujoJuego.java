@@ -20,13 +20,15 @@ public class ControladorFlujoJuego {
     private Tablero tablero;
     private ArrayList<Movible> batallon;
     private Unidad ultimaUnidadComprada;
+    private ControladorPrincipal controladorPrincipal;
 
-    public ControladorFlujoJuego(Jugador jugador1, Jugador jugador2, Tablero tablero){
+    public ControladorFlujoJuego(Jugador jugador1, Jugador jugador2, Tablero tablero, ControladorPrincipal controladorPrincipal){
         seleccionada = null;
         jugando = false;
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
         this.tablero = tablero;
+        this.controladorPrincipal = controladorPrincipal;
         batallon = new ArrayList<>();
     }
 
@@ -116,5 +118,13 @@ public class ControladorFlujoJuego {
 
     public boolean obtenerEstadoJuego() {
         return this.jugando;
+    }
+
+    public void deshabilitarBotonesUnidadDeJugador(Jugador jugador) {
+        this.controladorPrincipal.deshabilitarBotonesUnidadDeJugador(jugador);
+    }
+
+    public void habilitarBotonesUnidadDeJugador(Jugador jugador) {
+        this.controladorPrincipal.habilitarBotonesUnidadDeJugador(jugador);
     }
 }

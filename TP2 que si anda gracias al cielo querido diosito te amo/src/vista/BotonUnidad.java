@@ -30,7 +30,6 @@ public class BotonUnidad extends Button{
                 seleccionDeUnidades.cambiarLabelEstadoDeJuego("Ubique la unidad " + unidad.getClass().getSimpleName());
                 seleccionDeUnidades.cambiarLabelPuntajeJugador(jugadorDeTurno);
                 seleccionDeUnidades.deshabilitarBotonesUnidadDeJugador(jugadorDeTurno);
-                seleccionDeUnidades.habilitarBotonesUnidadDeJugador(jugadorSiguiente);
             } catch (PuntosInsuficientesException e) {
                 // LA IDEA ES QUE NUNCA LLEGUE ACÁ PORQUE SE BLOQUEAN LOS BOTONES
                 e.printStackTrace();

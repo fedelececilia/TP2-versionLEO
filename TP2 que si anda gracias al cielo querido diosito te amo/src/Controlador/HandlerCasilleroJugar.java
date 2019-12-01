@@ -74,17 +74,23 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
 
     public void handleUbicar(Jugador jugador1, Jugador jugador2){
         Unidad ultimaComprada = controlador.obtenerUltimaUnidadComprada();
-        if(jugador1.esTurno()){
-            jugador1.ubicarUnidad(ultimaComprada, coordenada);
-            jugador1.asignarTurno(false);
-            jugador2.asignarTurno(true);
+        if (jugador1.esTurno()){
+            if (jugador1.ubicarUnidad(ultimaComprada, coordenada)) {
+                jugador1.asignarTurno(false);
+                jugador2.asignarTurno(true);
+                controlador.cambiarUltimaUnidadComprada(null);
+                controlador.habilitarBotonesUnidadDeJugador(jugador2);
+            }
+            return;
         }
         else {
-            jugador2.ubicarUnidad(ultimaComprada, coordenada);
-            jugador1.asignarTurno(true);
-            jugador2.asignarTurno(false);
+            if (jugador2.ubicarUnidad(ultimaComprada, coordenada)) {
+                jugador1.asignarTurno(true);
+                jugador2.asignarTurno(false);
+                controlador.cambiarUltimaUnidadComprada(null);
+                controlador.habilitarBotonesUnidadDeJugador(jugador1);
+            }
         }
-        controlador.cambiarUltimaUnidadComprada(null);
     }
 
     @Override

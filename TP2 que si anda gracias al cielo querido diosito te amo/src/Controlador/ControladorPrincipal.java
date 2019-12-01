@@ -21,6 +21,7 @@ public class ControladorPrincipal {
     private Jugador jugador2;
     private Label labelTurno;
     private Label labelEstadoDeJuego;
+    private SeleccionDeUnidades seleccionDeUnidades;
 
     public ControladorPrincipal(Stage stage){
         this.stage = stage;
@@ -108,8 +109,8 @@ public class ControladorPrincipal {
         puntajeJugador1.setStyle("-fx-text-fill:WHITE;");
         Label puntajeJugador2 = new Label("Puntaje " + jugador2.obtenerNombre() + ": " + jugador2.obtenerPuntos());
         puntajeJugador2.setStyle("-fx-text-fill:WHITE;");
-        ControladorFlujoJuego controladorFlujoJuego = new ControladorFlujoJuego(jugador1, jugador2, tablero);
-        SeleccionDeUnidades seleccionDeUnidades = new SeleccionDeUnidades(jugador1, jugador2, this, puntajeJugador1, puntajeJugador2, controladorFlujoJuego);
+        ControladorFlujoJuego controladorFlujoJuego = new ControladorFlujoJuego(jugador1, jugador2, tablero, this);
+        this.seleccionDeUnidades = new SeleccionDeUnidades(jugador1, jugador2, this, puntajeJugador1, puntajeJugador2, controladorFlujoJuego);
 
         VBox contenedorUnidadesPosibles1 = new VBox(20);
         contenedorUnidadesPosibles1.setAlignment(Pos.CENTER);
@@ -148,5 +149,13 @@ public class ControladorPrincipal {
 
     public void cambiarLabelEstadoDeJuego(String mensaje) {
         this.labelEstadoDeJuego.setText(mensaje);
+    }
+
+    public void deshabilitarBotonesUnidadDeJugador(Jugador jugador) {
+        this.seleccionDeUnidades.deshabilitarBotonesUnidadDeJugador(jugador);
+    }
+
+    public void habilitarBotonesUnidadDeJugador(Jugador jugador) {
+        this.seleccionDeUnidades.habilitarBotonesUnidadDeJugador(jugador);
     }
 }
