@@ -1,7 +1,7 @@
 package vista;
 
+import Excepciones.PuntosInsuficientesException;
 import Jugador.Jugador;
-import Controlador.HandlerBotonUnidad;
 import Unidades.Unidad;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,16 +13,25 @@ public class BotonUnidad extends Button{
 
     Image imagen;
 
-    public BotonUnidad(String imagenRuta, Unidad unidad, Jugador jugador, Jugador OtroJugador){
+    public BotonUnidad(String imagenRuta, Unidad unidad, Jugador jugador, SeleccionDeUnidades seleccionDeUnidades){
         super();
         this.setPrefSize(100,100);
         imagen = new Image(getClass().getResourceAsStream(imagenRuta), 100, 100, false, false);
         ImageView imageView = new ImageView(imagen);
         this.setGraphic(imageView);
         this.setAlignment(Pos.CENTER);
-        this.setOnMouseClicked(new HandlerBotonUnidad(unidad, jugador, OtroJugador, this));
-      /*  this.setOnAction(MouseEvent ->{if (!jugador.tieneSuficientesPuntos(unidad)) {
-            this.setDisable(true); //Si el jugador no tiene puntos suficientes no esta el boton
-        }});*/
+        this.setOnAction(MouseEvent -> {
+            try {
+                jugador.comprar(unidad);
+                System.out.println("Compró la unidad");
+                seleccionDeUnidades.cambiarUltimaUnidadComprada(unidad);
+                seleccionDeUnidades.cambiarLabelEstadoDeJuego("Ubique la unidad " + unidad.getClass().getSimpleName());
+                seleccionDeUnidades.cambiarLabelPuntajeJugador(jugador);
+                // BLOQUEAR LOS BOTONES DE ESTE JUGADOR LUEGO DE COMPRAR
+            } catch (PuntosInsuficientesException e) {
+                // LA IDEA ES QUE NUNCA LLEGUE ACÁ PORQUE SE BLOQUEAN LOS BOTONES
+                e.printStackTrace();
+            }
+        });
     }
 }

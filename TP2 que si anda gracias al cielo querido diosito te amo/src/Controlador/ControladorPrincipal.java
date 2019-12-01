@@ -2,6 +2,7 @@ package Controlador;
 
 import Jugador.Jugador;
 import Tablero.Tablero;
+import Unidades.Unidad;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,6 +19,9 @@ public class ControladorPrincipal {
     private Stage stage;
     private Jugador jugador1;
     private Jugador jugador2;
+    private Unidad ultimaUnidadComprada;
+    private Label labelTurno;
+    private Label labelEstadoDeJuego;
 
     public ControladorPrincipal(Stage stage){
         this.stage = stage;
@@ -90,19 +94,26 @@ public class ControladorPrincipal {
         this.jugador2 = new Jugador(nombreJugador2, tablero, 2);
 
         BotonSalir botonSalir = new BotonSalir();
-        Label labelTurno = new Label("Turno de: " + jugador1.obtenerNombre());
+        this.labelTurno = new Label();
+        cambiarLabelTurno(jugador1);
         labelTurno.setStyle("-fx-text-fill:WHITE;");
-        Label labelEstadoDeJuego = new Label("Seleccione una unidad");
+        this.labelEstadoDeJuego = new Label();
+        cambiarLabelEstadoDeJuego("Seleccione una unidad.");
         labelEstadoDeJuego.setStyle("-fx-text-fill:WHITE;");
 
-        HBox contenedorSuperior = new HBox(10);
+        HBox contenedorSuperior = new HBox(20);
         contenedorSuperior.setAlignment(Pos.CENTER_LEFT);
         contenedorSuperior.getChildren().addAll(botonSalir, labelTurno, labelEstadoDeJuego);
 
-        SeleccionDeUnidades seleccionDeUnidades = new SeleccionDeUnidades(jugador1, jugador2);
+        Label puntajeJugador1 = new Label("Puntaje " + jugador1.obtenerNombre() + ": " + jugador1.obtenerPuntos());
+        puntajeJugador1.setStyle("-fx-text-fill:WHITE;");
+        Label puntajeJugador2 = new Label("Puntaje " + jugador2.obtenerNombre() + ": " + jugador2.obtenerPuntos());
+        puntajeJugador2.setStyle("-fx-text-fill:WHITE;");
+        SeleccionDeUnidades seleccionDeUnidades = new SeleccionDeUnidades(jugador1, jugador2, this, puntajeJugador1, puntajeJugador2);
 
         VBox contenedorUnidadesPosibles1 = new VBox(20);
         contenedorUnidadesPosibles1.setAlignment(Pos.CENTER);
+        contenedorUnidadesPosibles1.getChildren().add(puntajeJugador1);
         for (BotonUnidad boton : seleccionDeUnidades.unidadesPosiblesJugador1()) {
             contenedorUnidadesPosibles1.getChildren().add(boton);
         }
@@ -112,11 +123,12 @@ public class ControladorPrincipal {
 
         VBox contenedorUnidadesPosibles2 = new VBox(20);
         contenedorUnidadesPosibles2.setAlignment(Pos.CENTER);
+        contenedorUnidadesPosibles2.getChildren().add(puntajeJugador2);
         for (BotonUnidad boton : seleccionDeUnidades.unidadesPosiblesJugador2()) {
             contenedorUnidadesPosibles2.getChildren().add(boton);
         }
 
-        HBox contenedorPrincipal = new HBox(20);
+        HBox contenedorPrincipal = new HBox(30);
         contenedorPrincipal.setMinHeight(700);
         contenedorPrincipal.setAlignment(Pos.CENTER);
         contenedorPrincipal.getChildren().addAll(contenedorUnidadesPosibles1, tableroVista, contenedorUnidadesPosibles2);
@@ -128,5 +140,17 @@ public class ControladorPrincipal {
         stackPane.getChildren().add(canvas);
 
         return new Scene(stackPane);
+    }
+
+    public void cambiarUltimaUnidadComprada(Unidad ultimaUnidadComprada) {
+        this.ultimaUnidadComprada = ultimaUnidadComprada;
+    }
+
+    public void cambiarLabelTurno(Jugador jugador) {
+        this.labelTurno.setText("Turno de: " + jugador.obtenerNombre());
+    }
+
+    public void cambiarLabelEstadoDeJuego(String mensaje) {
+        this.labelEstadoDeJuego.setText(mensaje);
     }
 }

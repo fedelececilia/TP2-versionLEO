@@ -1,13 +1,18 @@
 package vista;
 
+import Controlador.ControladorPrincipal;
 import Jugador.Jugador;
 import Unidades.Unidad;
+import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 
 public class SeleccionDeUnidades {
     Jugador jugador1;
     Jugador jugador2;
+    ControladorPrincipal controladorPrincipal;
+    Label puntajeJugador1;
+    Label puntajeJugador2;
 
     BotonUnidad gatoSoldado;
     BotonUnidad gatoJinete;
@@ -18,19 +23,22 @@ public class SeleccionDeUnidades {
     BotonUnidad perroCurandero;
     BotonUnidad perroCatapulta;
 
-    public SeleccionDeUnidades(Jugador jugador1, Jugador jugador2) {
+    public SeleccionDeUnidades(Jugador jugador1, Jugador jugador2, ControladorPrincipal controladorPrincipal, Label puntajeJugador1, Label puntajeJugador2) {
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
+        this.controladorPrincipal = controladorPrincipal;
+        this.puntajeJugador1 = puntajeJugador1;
+        this.puntajeJugador2 = puntajeJugador2;
         jugador1.asignarTurno(true);
         jugador2.asignarTurno(false);
-        this.perroSoldado = new BotonUnidad("imagenes/perro_soldado_precio.png", Unidad.factoryUnidad("soldado"), jugador1, jugador2);
-        this.perroJinete = new BotonUnidad("imagenes/perro_jinete_precio.png", Unidad.factoryUnidad("jinete"), jugador1, jugador2);
-        this.perroCurandero = new BotonUnidad("imagenes/perro_curandero_precio.png", Unidad.factoryUnidad("curandero"), jugador1, jugador2);
-        this.perroCatapulta = new BotonUnidad("imagenes/perro_catapulta_precio.png", Unidad.factoryUnidad("catapulta"), jugador1, jugador2);
-        this.gatoSoldado = new BotonUnidad("imagenes/gato_soldado_precio.png", Unidad.factoryUnidad("soldado"), jugador2, jugador1);
-        this.gatoJinete = new BotonUnidad("imagenes/gato_jinete_precio.png",Unidad.factoryUnidad("jinete"), jugador2, jugador1);
-        this.gatoCurandero = new BotonUnidad("imagenes/gato_curandero_precio.png", Unidad.factoryUnidad("curandero"), jugador2, jugador1);
-        this.gatoCatapulta = new BotonUnidad("imagenes/gato_catapulta_precio.png", Unidad.factoryUnidad("catapulta"), jugador2, jugador1);
+        this.gatoSoldado = new BotonUnidad("imagenes/gato_soldado_precio.png", Unidad.factoryUnidad("soldado"), jugador1, this);
+        this.gatoJinete = new BotonUnidad("imagenes/gato_jinete_precio.png",Unidad.factoryUnidad("jinete"), jugador1, this);
+        this.gatoCurandero = new BotonUnidad("imagenes/gato_curandero_precio.png", Unidad.factoryUnidad("curandero"), jugador1, this);
+        this.gatoCatapulta = new BotonUnidad("imagenes/gato_catapulta_precio.png", Unidad.factoryUnidad("catapulta"), jugador1, this);
+        this.perroSoldado = new BotonUnidad("imagenes/perro_soldado_precio.png", Unidad.factoryUnidad("soldado"), jugador2, this);
+        this.perroJinete = new BotonUnidad("imagenes/perro_jinete_precio.png", Unidad.factoryUnidad("jinete"), jugador2, this);
+        this.perroCurandero = new BotonUnidad("imagenes/perro_curandero_precio.png", Unidad.factoryUnidad("curandero"), jugador2, this);
+        this.perroCatapulta = new BotonUnidad("imagenes/perro_catapulta_precio.png", Unidad.factoryUnidad("catapulta"), jugador2, this);
     }
 
     public ArrayList<BotonUnidad> unidadesPosiblesJugador1() { //VER SI ESTOY INSTANCIANDO UNIDAD O EN ALGÚN LUGAR TIENE QUE APARECER new();
@@ -51,8 +59,27 @@ public class SeleccionDeUnidades {
         return listaBotones2;
     }
 
+    public void cambiarUltimaUnidadComprada(Unidad ultimaUnidadComprada) {
+        this.controladorPrincipal.cambiarUltimaUnidadComprada(ultimaUnidadComprada);
+    }
 
-    public void turnoJugador(Jugador jugador) {  //se llama para cada jugador en el handle de botonJugar
+    public void cambiarLabelEstadoDeJuego(String mensaje) {
+        this.controladorPrincipal.cambiarLabelEstadoDeJuego(mensaje);
+    }
+
+    public void cambiarLabelPuntajeJugador(Jugador jugador) {
+        if (jugador == jugador1) {
+            this.puntajeJugador1.setText("Puntaje " + jugador.obtenerNombre() + ": " + jugador.obtenerPuntos());
+        } else {
+            this.puntajeJugador2.setText("Puntaje " + jugador.obtenerNombre() + ": " + jugador.obtenerPuntos());
+        }
+    }
+
+}
+
+
+/*
+public void turnoJugador(Jugador jugador) {  //se llama para cada jugador en el handle de botonJugar
 
         if (jugador == this.jugador1) {
             desbloquearUnidadesJugador1();
@@ -129,5 +156,4 @@ public class SeleccionDeUnidades {
             else gatoSoldado.setDisable(true);
         }
     }
-
-}
+ */
