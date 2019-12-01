@@ -51,7 +51,7 @@ public class ControladorPrincipal {
         contenedorPrincipal.getChildren().add(comenzar);
         comenzar.setOnAction(actionEvent -> {
             stage.setScene(CreacionDeUsuarios());
-            stage.setFullScreen(true);});
+            /*stage.setFullScreen(true);*/});
         canvas.getChildren().add(contenedorBotonSalir);
         canvas.getChildren().add(contenedorPrincipal);
 
@@ -81,7 +81,7 @@ public class ControladorPrincipal {
         BotonJugar jugar = new BotonJugar(contenedorPrincipal, nombreJugador1, nombreJugador2);
         jugar.setOnAction(actionEvent -> {
             stage.setScene(MenuSeleccionDeUnidades(nombreJugador1.getText(), nombreJugador2.getText()));
-            stage.setFullScreen(true);
+            //stage.setFullScreen(true);
         });
         panelNombreJugadores.getChildren().addAll(nombreJugador1, nombreJugador2, jugar);
         contenedorPrincipal.getChildren().add(panelNombreJugadores);
@@ -98,12 +98,12 @@ public class ControladorPrincipal {
         BotonSalir botonSalir = new BotonSalir();
         this.labelTurno = new Label();
         cambiarLabelTurno(jugador1);
-        labelTurno.setStyle("-fx-text-fill:WHITE; -fx-font: 18 arial;");
+        labelTurno.setStyle("-fx-text-fill:WHITE;");
         this.labelEstadoDeJuego = new Label();
         cambiarLabelEstadoDeJuego("Seleccione una unidad.");
-        labelEstadoDeJuego.setStyle("-fx-text-fill:WHITE; -fx-font: 18 arial;");
+        labelEstadoDeJuego.setStyle("-fx-text-fill:WHITE;");
 
-        HBox contenedorSuperior = new HBox(25);
+        HBox contenedorSuperior = new HBox(10);
         contenedorSuperior.setAlignment(Pos.CENTER_LEFT);
         contenedorSuperior.getChildren().addAll(botonSalir, labelTurno, labelEstadoDeJuego);
 
@@ -152,7 +152,7 @@ public class ControladorPrincipal {
         cambiarLabelTurno(jugador1);
         cambiarLabelEstadoDeJuego("Comienza el juego!");
 
-        HBox contenedorSuperior = new HBox(25);
+        HBox contenedorSuperior = new HBox(10);
         contenedorSuperior.setAlignment(Pos.CENTER_LEFT);
         contenedorSuperior.getChildren().addAll(botonSalir, labelTurno, labelEstadoDeJuego);
 

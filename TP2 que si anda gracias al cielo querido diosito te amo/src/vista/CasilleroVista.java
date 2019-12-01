@@ -30,30 +30,30 @@ public class CasilleroVista extends Pane implements Observador {
         if (this.casillero.estaOcupado()) {
             if ((this.casillero.obtenerUnidad()) instanceof SoldadoDeInfanteria) {
                 if (jugador1.obtenerListaUnidades().contains(this.casillero.obtenerUnidad())) {
-                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/gato_soldado.jpg"), 40, 40, false ,false));
+                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/gato_soldado.jpg"), 29, 29, false ,false));
                 } else {
-                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/perro_soldado.jpg"), 40, 40, false ,false));
+                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/perro_soldado.jpg"), 29, 29, false ,false));
                 }
             }
             if ((this.casillero.obtenerUnidad()) instanceof Curandero) {
                 if (jugador1.obtenerListaUnidades().contains(this.casillero.obtenerUnidad())) {
-                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/gato_curandero.jpg"), 40, 40, false ,false));
+                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/gato_curandero.jpg"), 29, 29, false ,false));
                 } else {
-                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/perro_curandero.jpg"), 40, 40, false ,false));
+                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/perro_curandero.jpg"), 29, 29, false ,false));
                 }
             }
             if ((this.casillero.obtenerUnidad()) instanceof Jinete) {
                 if (jugador1.obtenerListaUnidades().contains(this.casillero.obtenerUnidad())) {
-                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/gato_jinete.jpg"), 40, 40, false ,false));
+                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/gato_jinete.jpg"), 29, 29, false ,false));
                 } else {
-                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/perro_jinete.jpg"), 40, 40, false ,false));
+                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/perro_jinete.jpg"), 29, 29, false ,false));
                 }
             }
             if ((this.casillero.obtenerUnidad()) instanceof Catapulta) {
                 if (jugador1.obtenerListaUnidades().contains(this.casillero.obtenerUnidad())) {
-                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/gato_catapulta.jpg"), 40, 40, false ,false));
+                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/gato_catapulta.jpg"), 29, 29, false ,false));
                 } else {
-                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/perro_catapulta.jpg"), 40, 40, false ,false));
+                    unidad = new ImageView(new Image(getClass().getResourceAsStream("imagenes/perro_catapulta.jpg"), 29, 29, false ,false));
                 }
             }
             unidad.maxHeight(1);

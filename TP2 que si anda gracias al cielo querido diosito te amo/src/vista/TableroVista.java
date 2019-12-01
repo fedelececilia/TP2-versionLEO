@@ -25,7 +25,7 @@ public class TableroVista extends Group {
                 nuevo.setStyle("    -fx-background-color: black, white ;" +
                         "-fx-background-insets: 0, 0 1 1 0 ;");
                 tablero.obtenerCasillero(coordenada).agregarObservador(nuevo);
-                nuevo.setPrefSize(35,35);
+                nuevo.setPrefSize(30,30);
                 casilleros[i][j] = nuevo;
                 tableroGui.add(nuevo, j, i);
             }
