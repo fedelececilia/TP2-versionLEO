@@ -22,6 +22,7 @@ public class ControladorPrincipal {
     private Label labelTurno;
     private Label labelEstadoDeJuego;
     private SeleccionDeUnidades seleccionDeUnidades;
+    private TableroVista tableroVista;
 
     public ControladorPrincipal(Stage stage){
         this.stage = stage;
@@ -111,6 +112,7 @@ public class ControladorPrincipal {
         puntajeJugador2.setStyle("-fx-text-fill:WHITE;");
         ControladorFlujoJuego controladorFlujoJuego = new ControladorFlujoJuego(jugador1, jugador2, tablero, this);
         this.seleccionDeUnidades = new SeleccionDeUnidades(jugador1, jugador2, this, puntajeJugador1, puntajeJugador2, controladorFlujoJuego);
+        seleccionDeUnidades.deshabilitarBotonesUnidadDeJugador(jugador2);
 
         VBox contenedorUnidadesPosibles1 = new VBox(20);
         contenedorUnidadesPosibles1.setAlignment(Pos.CENTER);
@@ -119,7 +121,7 @@ public class ControladorPrincipal {
             contenedorUnidadesPosibles1.getChildren().add(boton);
         }
 
-        TableroVista tableroVista = new TableroVista(tablero, jugador1, jugador2, controladorFlujoJuego);
+        this.tableroVista = new TableroVista(tablero, jugador1, jugador2, controladorFlujoJuego);
 
         VBox contenedorUnidadesPosibles2 = new VBox(20);
         contenedorUnidadesPosibles2.setAlignment(Pos.CENTER);
@@ -142,8 +144,33 @@ public class ControladorPrincipal {
         return new Scene(stackPane);
     }
 
-    public Scene PantallaDeJuego() {
-        return new Scene(null);
+    public void PantallaDeJuego() {
+        BotonSalir botonSalir = new BotonSalir();
+        cambiarLabelTurno(jugador1);
+        cambiarLabelEstadoDeJuego("Comienza el juego!");
+
+        HBox contenedorSuperior = new HBox(20);
+        contenedorSuperior.setAlignment(Pos.CENTER_LEFT);
+        contenedorSuperior.getChildren().addAll(botonSalir, labelTurno, labelEstadoDeJuego);
+
+        Label labelInstrucciones = new Label();
+        labelInstrucciones.setMaxWidth(300);
+        labelInstrucciones.setStyle("-fx-text-fill:WHITE;");
+        labelInstrucciones.setText("rthhhhhhhhhhhhhwrwhhhhhhhhhhhhhhhhhhhhhhhhhhhtrwthrhdzghsriksdnhrivherghoisrhjszdcbkjsbefuwgeufgwueifgwuiegfuiwegfuiwgefuwe");
+
+        HBox contenedorPrincipal = new HBox(30);
+        contenedorPrincipal.setMinHeight(700);
+        contenedorPrincipal.setAlignment(Pos.CENTER);
+        contenedorPrincipal.getChildren().addAll(labelInstrucciones, this.tableroVista);
+
+        VBox canvas = new VBox();
+        canvas.getChildren().addAll(contenedorSuperior, contenedorPrincipal);
+
+        StackPane stackPane = principal();
+        stackPane.getChildren().add(canvas);
+
+        stage.setScene(new Scene(stackPane));
+        stage.setFullScreen(true);
     }
 
 

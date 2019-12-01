@@ -81,6 +81,7 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
                     jugador1.asignarTurno(false);
                     jugador2.asignarTurno(true);
                     controlador.habilitarBotonesUnidadDeJugador(jugador2);
+                    return;
                 }
                 else controlador.habilitarBotonesUnidadDeJugador(jugador1);
             }
@@ -92,6 +93,7 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
                     jugador1.asignarTurno(true);
                     jugador2.asignarTurno(false);
                     controlador.habilitarBotonesUnidadDeJugador(jugador1);
+                    return;
                 }
                 controlador.habilitarBotonesUnidadDeJugador(jugador2);
             }
