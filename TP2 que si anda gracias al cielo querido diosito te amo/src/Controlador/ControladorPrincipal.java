@@ -99,8 +99,34 @@ public class ControladorPrincipal {
         contenedorSuperior.setAlignment(Pos.CENTER_LEFT);
         contenedorSuperior.getChildren().addAll(botonSalir, labelTurno, labelEstadoDeJuego);
 
-        // ACÁ FALTA!!!
+        SeleccionDeUnidades seleccionDeUnidades = new SeleccionDeUnidades(jugador1, jugador2);
 
-        return new Scene(null);
+        VBox contenedorUnidadesPosibles1 = new VBox(20);
+        contenedorUnidadesPosibles1.setAlignment(Pos.CENTER);
+        for (BotonUnidad boton : seleccionDeUnidades.unidadesPosiblesJugador1()) {
+            contenedorUnidadesPosibles1.getChildren().add(boton);
+        }
+
+        ControladorFlujoJuego controladorFlujoJuego = new ControladorFlujoJuego(jugador1, jugador2, tablero);
+        TableroVista tableroVista = new TableroVista(tablero, jugador1, jugador2, controladorFlujoJuego);
+
+        VBox contenedorUnidadesPosibles2 = new VBox(20);
+        contenedorUnidadesPosibles1.setAlignment(Pos.CENTER);
+        for (BotonUnidad boton : seleccionDeUnidades.unidadesPosiblesJugador2()) {
+            contenedorUnidadesPosibles2.getChildren().add(boton);
+        }
+
+        HBox contenedorPrincipal = new HBox(20);
+        contenedorPrincipal.setMinHeight(700);
+        contenedorPrincipal.setAlignment(Pos.CENTER);
+        contenedorPrincipal.getChildren().addAll(contenedorUnidadesPosibles1, tableroVista, contenedorUnidadesPosibles2);
+
+        VBox canvas = new VBox();
+        canvas.getChildren().addAll(contenedorSuperior, contenedorPrincipal);
+
+        StackPane stackPane = principal();
+        stackPane.getChildren().add(canvas);
+
+        return new Scene(stackPane);
     }
 }

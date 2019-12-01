@@ -15,12 +15,11 @@ public class HandlerBotonUnidad implements EventHandler<MouseEvent> {
     Button boton;
     TableroVista tableroVista;
 
-    public HandlerBotonUnidad(Unidad unidad, Jugador jugador, Jugador OtroJugador, Button boton, TableroVista tableroVista){
+    public HandlerBotonUnidad(Unidad unidad, Jugador jugador, Jugador OtroJugador, Button boton){
         this.unidad = unidad;
         this.jugador = jugador;
         this.OtroJugador = OtroJugador;
         this.boton = boton;
-        this.tableroVista = tableroVista;
     }
 
     @Override
