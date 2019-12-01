@@ -14,9 +14,9 @@ public class BotonUnidad extends Button{
     Image imagen;
     Unidad unidad;
 
-    public BotonUnidad(String imagenRuta, Unidad unidad, Jugador jugadorDeTurno, Jugador jugadorSiguiente, SeleccionDeUnidades seleccionDeUnidades){
+    public BotonUnidad(String imagenRuta, String stringUnidad, Jugador jugadorDeTurno, Jugador jugadorSiguiente, SeleccionDeUnidades seleccionDeUnidades){
         super();
-        this.unidad = unidad;
+        this.unidad = Unidad.factoryUnidad(stringUnidad);
         this.setPrefSize(100,100);
         imagen = new Image(getClass().getResourceAsStream(imagenRuta), 100, 100, false, false);
         ImageView imageView = new ImageView(imagen);
@@ -24,13 +24,15 @@ public class BotonUnidad extends Button{
         this.setAlignment(Pos.CENTER);
         this.setOnAction(MouseEvent -> {
             try {
-                jugadorDeTurno.comprar(unidad);
+                Unidad unidadAComprar = Unidad.factoryUnidad(stringUnidad);
+                jugadorDeTurno.comprar(unidadAComprar);
                 System.out.println("Compró la unidad");
-                seleccionDeUnidades.cambiarUltimaUnidadComprada(unidad);
-                seleccionDeUnidades.cambiarLabelEstadoDeJuego("Ubique la unidad " + unidad.getClass().getSimpleName());
+                seleccionDeUnidades.cambiarUltimaUnidadComprada(unidadAComprar);
+                seleccionDeUnidades.cambiarLabelEstadoDeJuego("Ubique la unidad " + unidadAComprar.getClass().getSimpleName());
                 seleccionDeUnidades.cambiarLabelPuntajeJugador(jugadorDeTurno);
                 seleccionDeUnidades.deshabilitarBotonesUnidadDeJugador(jugadorDeTurno);
                 seleccionDeUnidades.deshabilitarBotonesUnidadDeJugador(jugadorSiguiente);
+
             } catch (PuntosInsuficientesException e) {
                 // LA IDEA ES QUE NUNCA LLEGUE ACÁ PORQUE SE BLOQUEAN LOS BOTONES
                 e.printStackTrace();

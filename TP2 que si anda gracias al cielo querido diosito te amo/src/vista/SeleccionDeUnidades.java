@@ -34,14 +34,14 @@ public class SeleccionDeUnidades {
         this.puntajeJugador2 = puntajeJugador2;
         jugador1.asignarTurno(true);
         jugador2.asignarTurno(false);
-        this.gatoSoldado = new BotonUnidad("imagenes/gato_soldado_precio.png", Unidad.factoryUnidad("soldado"), jugador1, jugador2, this);
-        this.gatoJinete = new BotonUnidad("imagenes/gato_jinete_precio.png",Unidad.factoryUnidad("jinete"), jugador1, jugador2, this);
-        this.gatoCurandero = new BotonUnidad("imagenes/gato_curandero_precio.png", Unidad.factoryUnidad("curandero"), jugador1, jugador2, this);
-        this.gatoCatapulta = new BotonUnidad("imagenes/gato_catapulta_precio.png", Unidad.factoryUnidad("catapulta"), jugador1, jugador2, this);
-        this.perroSoldado = new BotonUnidad("imagenes/perro_soldado_precio.png", Unidad.factoryUnidad("soldado"), jugador2, jugador1, this);
-        this.perroJinete = new BotonUnidad("imagenes/perro_jinete_precio.png", Unidad.factoryUnidad("jinete"), jugador2, jugador1, this);
-        this.perroCurandero = new BotonUnidad("imagenes/perro_curandero_precio.png", Unidad.factoryUnidad("curandero"), jugador2, jugador1, this);
-        this.perroCatapulta = new BotonUnidad("imagenes/perro_catapulta_precio.png", Unidad.factoryUnidad("catapulta"), jugador2, jugador1, this);
+        this.gatoSoldado = new BotonUnidad("imagenes/gato_soldado_precio.png", "soldado", jugador1, jugador2, this);
+        this.gatoJinete = new BotonUnidad("imagenes/gato_jinete_precio.png", "jinete", jugador1, jugador2, this);
+        this.gatoCurandero = new BotonUnidad("imagenes/gato_curandero_precio.png", "curandero", jugador1, jugador2, this);
+        this.gatoCatapulta = new BotonUnidad("imagenes/gato_catapulta_precio.png", "catapulta", jugador1, jugador2, this);
+        this.perroSoldado = new BotonUnidad("imagenes/perro_soldado_precio.png", "soldado", jugador2, jugador1, this);
+        this.perroJinete = new BotonUnidad("imagenes/perro_jinete_precio.png", "jinete", jugador2, jugador1, this);
+        this.perroCurandero = new BotonUnidad("imagenes/perro_curandero_precio.png", "curandero", jugador2, jugador1, this);
+        this.perroCatapulta = new BotonUnidad("imagenes/perro_catapulta_precio.png", "catapulta", jugador2, jugador1, this);
     }
 
     public ArrayList<BotonUnidad> unidadesPosiblesJugador1() { //VER SI ESTOY INSTANCIANDO UNIDAD O EN ALGÚN LUGAR TIENE QUE APARECER new();
