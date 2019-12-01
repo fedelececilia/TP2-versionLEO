@@ -1,6 +1,6 @@
 package Controlador;
 
-import AlgoChess.Jugador;
+import Jugador.Jugador;
 import Tablero.Casillero;
 import Tablero.Coordenada;
 import Unidades.SoldadoDeInfanteria;

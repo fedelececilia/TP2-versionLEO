@@ -1,18 +1,44 @@
 package vista;
 
 
-import AlgoChess.Jugador;
+import Controlador.ControladorPrincipal;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+    Stage stage;
+
+    public static void main(String[] args){
+        launch(args);
+    }
+
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        this.stage = stage;
+        ControladorPrincipal controladorPrincipal = new ControladorPrincipal(this.stage);
+        stage.setTitle("AlgoChess");
+        stage.setMinWidth(1024);
+        stage.setMinHeight(720);
+        stage.setFullScreen(true);
+        stage.setMaximized(true);
+        stage.setScene(controladorPrincipal.MenuInicio());
+        stage.show();
+    }
+}
+
+
+
+/*package vista;
+
+
+import Jugador.Jugador;
 import Controlador.ControladorFlujoJuego;
 import Tablero.Tablero;
 import Tablero.Coordenada;
 import Unidades.*;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
@@ -83,12 +109,12 @@ public class Main extends Application {
         jugador2.ubicarUnidad(soldado4,coord9);
 
         Scene scene = new Scene(tableroVista);
-        stage.setTitle("AlgoChess");
+        stage.setTitle("Jugador");
         stage.setScene(scene);
         stage.setMinWidth(950);
         stage.setMinHeight(800);
         //reproducirMusicaDeFondo();
         stage.show();
     }
-}
+}*/
 

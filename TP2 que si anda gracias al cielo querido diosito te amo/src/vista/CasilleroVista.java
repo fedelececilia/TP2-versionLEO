@@ -1,19 +1,14 @@
 package vista;
 
-import AlgoChess.Jugador;
+import Jugador.Jugador;
 import Controlador.ControladorFlujoJuego;
 import Controlador.HandlerCasilleroJugar;
 import Controlador.Observador;
 import Tablero.Casillero;
 import Tablero.Coordenada;
-import Tablero.Direccion;
 import Unidades.*;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class CasilleroVista extends Pane implements Observador {

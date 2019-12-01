@@ -1,6 +1,6 @@
 package Controlador;
 
-import AlgoChess.Jugador;
+import Jugador.Jugador;
 import Excepciones.BatallonInvalidoException;
 import Tablero.Coordenada;
 import Tablero.Direccion;

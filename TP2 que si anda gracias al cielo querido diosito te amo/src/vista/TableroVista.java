@@ -1,25 +1,11 @@
 package vista;
 
-import AlgoChess.Jugador;
+import Jugador.Jugador;
 import Controlador.ControladorFlujoJuego;
-import Tablero.Casillero;
 import Tablero.Coordenada;
 import Tablero.Tablero;
-import Unidades.Unidad;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-
-import java.util.HashMap;
 
 
 public class TableroVista extends Group {

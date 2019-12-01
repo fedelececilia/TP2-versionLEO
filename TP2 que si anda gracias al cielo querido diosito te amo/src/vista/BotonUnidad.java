@@ -1,14 +1,12 @@
 package vista;
 
-import AlgoChess.Jugador;
+import Jugador.Jugador;
 import Controlador.HandlerBotonUnidad;
 import Unidades.Unidad;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.awt.event.MouseEvent;
 
 
 public class BotonUnidad extends Button{

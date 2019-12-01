@@ -1,4 +1,4 @@
-import AlgoChess.Jugador;
+import Jugador.Jugador;
 import Tablero.*;
 import Unidades.*;
 import Excepciones.*;

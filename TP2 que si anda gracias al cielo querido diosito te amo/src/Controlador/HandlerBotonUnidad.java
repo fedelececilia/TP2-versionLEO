@@ -1,7 +1,6 @@
 package Controlador;
 
-import AlgoChess.Jugador;
-import Excepciones.PuntosInsuficientesException;
+import Jugador.Jugador;
 import Unidades.Unidad;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

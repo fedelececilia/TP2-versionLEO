@@ -1,6 +1,6 @@
 package vista;
 
-import AlgoChess.Jugador;
+import Jugador.Jugador;
 import Unidades.Unidad;
 
 import java.util.ArrayList;
