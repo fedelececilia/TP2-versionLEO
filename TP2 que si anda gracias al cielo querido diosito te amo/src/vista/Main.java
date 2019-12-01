@@ -14,7 +14,7 @@ public class Main extends Application {
 
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         this.stage = stage;
         ControladorPrincipal controladorPrincipal = new ControladorPrincipal(this.stage);
         stage.setTitle("AlgoChess");

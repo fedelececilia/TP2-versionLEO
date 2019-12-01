@@ -111,7 +111,7 @@ public class ControladorPrincipal {
         TableroVista tableroVista = new TableroVista(tablero, jugador1, jugador2, controladorFlujoJuego);
 
         VBox contenedorUnidadesPosibles2 = new VBox(20);
-        contenedorUnidadesPosibles1.setAlignment(Pos.CENTER);
+        contenedorUnidadesPosibles2.setAlignment(Pos.CENTER);
         for (BotonUnidad boton : seleccionDeUnidades.unidadesPosiblesJugador2()) {
             contenedorUnidadesPosibles2.getChildren().add(boton);
         }
