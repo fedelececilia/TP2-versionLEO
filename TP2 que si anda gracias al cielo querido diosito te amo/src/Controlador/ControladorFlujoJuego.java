@@ -42,16 +42,16 @@ public class ControladorFlujoJuego {
             if (tablero.obtenerCasillero(coordenada).estaOcupado()) {
                 System.out.println("Se esta realizando una accion");
                 String mensaje = jugador.realizarAccionDeUnidad(seleccionada, tablero.obtenerCasillero(coordenada).obtenerUnidad());
-                jugador1.checkearUnidadesMuertas();
-                jugador2.checkearUnidadesMuertas();
+                controladorPrincipal.cambiarLabelsInfoJugador();
+                ArrayList<Unidad> muertasJugador1 = jugador1.checkearUnidadesMuertas();
+                controladorPrincipal.borrarLabelsUnidad(jugador1, muertasJugador1);
+                ArrayList<Unidad> muertasJugador2 = jugador2.checkearUnidadesMuertas();
+                controladorPrincipal.borrarLabelsUnidad(jugador2, muertasJugador2);
                 jugador1.actualizarEstadoJugador();
                 jugador2.actualizarEstadoJugador();
                 updateEstadoDeJuego(jugador1, jugador2);
                 seleccionarUnidad(null);
                 cambiarLabelEstadoDeJuego(mensaje);
-                if (mensaje == "La acción es inválida. Pierde el turno.") return;
-                if (seleccionada instanceof Curandero) controladorPrincipal.cambiarLabelInfoJugador(jugador, tablero.obtenerCasillero(coordenada).obtenerUnidad(), false);
-                else controladorPrincipal.cambiarLabelInfoJugador(jugador, tablero.obtenerCasillero(coordenada).obtenerUnidad(), true);
                 return;
             }
             if(jugador.obtenerListaUnidades().contains(seleccionada)) {
@@ -63,7 +63,7 @@ public class ControladorFlujoJuego {
                 }
                 String mensaje = jugador.mover((Movible) seleccionada, Direccion.obtenerDireccionSegunCoordenadas(seleccionada.obtenerCoordenada(), coordenada));
                 cambiarLabelEstadoDeJuego(mensaje);
-                controladorPrincipal.cambiarLabelInfoJugador(jugador, seleccionada, false);
+                controladorPrincipal.cambiarLabelsInfoJugador();
             }
             else{
                 cambiarLabelEstadoDeJuego("No puede mover una unidad enemiga. Perdió el turno.");
@@ -87,9 +87,7 @@ public class ControladorFlujoJuego {
         try {
             nuevo = new Batallon(batallon.get(0),batallon.get(1), batallon.get(2));
             nuevo.mover(tablero,Direccion.obtenerDireccionSegunCoordenadas(batallon.get(1).obtenerCoordenada(), coordenada));
-            controladorPrincipal.cambiarLabelInfoJugador(jugador, batallon.get(0), false);
-            controladorPrincipal.cambiarLabelInfoJugador(jugador, batallon.get(1), false);
-            controladorPrincipal.cambiarLabelInfoJugador(jugador, batallon.get(2), false);
+            controladorPrincipal.cambiarLabelsInfoJugador();
         } catch (BatallonInvalidoException e) {
             e.getMessage();
         }

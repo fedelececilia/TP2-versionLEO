@@ -30,6 +30,8 @@ public class ControladorPrincipal {
     private TableroVista tableroVista;
     private HashMap<Unidad, Label> infoUnidadesJugador1;
     private HashMap<Unidad, Label> infoUnidadesJugador2;
+    private VBox contenedorInfoJugador1;
+    private VBox contenedorInfoJugador2;
 
     public ControladorPrincipal(Stage stage){
         this.stage = stage;
@@ -173,7 +175,7 @@ public class ControladorPrincipal {
             infoUnidadesJugador1.put(unidad, labelUnidad);
         }
 
-        VBox contenedorInfoJugador1 = new VBox(10);
+        this.contenedorInfoJugador1 = new VBox(10);
         contenedorInfoJugador1.setAlignment(Pos.CENTER);
         contenedorInfoJugador1.getChildren().add(nombreJugador1);
         for (Label label : infoUnidadesJugador1.values()) {
@@ -191,7 +193,7 @@ public class ControladorPrincipal {
             infoUnidadesJugador2.put(unidad, labelUnidad);
         }
 
-        VBox contenedorInfoJugador2 = new VBox(10);
+        this.contenedorInfoJugador2 = new VBox(10);
         contenedorInfoJugador2.setAlignment(Pos.CENTER);
         contenedorInfoJugador2.getChildren().add(nombreJugador2);
         for (Label label : infoUnidadesJugador2.values()) {
@@ -226,14 +228,16 @@ public class ControladorPrincipal {
         this.seleccionDeUnidades.habilitarBotonesUnidadDeJugador(jugador);
     }
 
-    public void cambiarLabelInfoJugador(Jugador jugador, Unidad unidad, boolean esAtaque) {
+    /*public void cambiarLabelInfoJugador(Jugador jugador, Unidad unidad, boolean miroEnMisAliados) {
         if (unidad == null) {
-            infoUnidadesJugador1.keySet().removeIf(Objects::isNull);
+            contenedorInfoJugador1.getChildren().remove(infoUnidadesJugador1.get(unidad));
+            contenedorInfoJugador2.getChildren().remove(infoUnidadesJugador2.get(unidad));
+            /*infoUnidadesJugador1.keySet().removeIf(Objects::isNull);
             infoUnidadesJugador2.keySet().removeIf(Objects::isNull);
             return;
         }
         if (jugador.obtenerNumeroJugador() == 1) {
-            if (!esAtaque) {
+            if (miroEnMisAliados) {
                 Label labelInfoUnidad = infoUnidadesJugador1.get(unidad);
                 labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
             } else if (!jugador.obtenerListaUnidades().contains(unidad)) {
@@ -241,7 +245,7 @@ public class ControladorPrincipal {
                 labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
             }
         } else {
-            if (!esAtaque) {
+            if (miroEnMisAliados) {
                 Label labelInfoUnidad = infoUnidadesJugador2.get(unidad);
                 labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
             } else if (!jugador.obtenerListaUnidades().contains(unidad)) {
@@ -249,5 +253,29 @@ public class ControladorPrincipal {
                 labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
             }
         }
+    }*/
+
+    public void cambiarLabelsInfoJugador() {
+        for (Unidad unidad : jugador1.obtenerListaUnidades()) {
+            Label labelInfoUnidad = infoUnidadesJugador1.get(unidad);
+            labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
+        }
+        for (Unidad unidad : jugador2.obtenerListaUnidades()) {
+            Label labelInfoUnidad = infoUnidadesJugador2.get(unidad);
+            labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
+        }
     }
+
+    public void borrarLabelsUnidad(Jugador jugador, ArrayList<Unidad> muertasJugador) {
+        if (jugador == jugador1) {
+            for (Unidad muerta : muertasJugador) {
+                contenedorInfoJugador1.getChildren().remove(infoUnidadesJugador1.get(muerta));
+            }
+        } else {
+            for (Unidad muerta : muertasJugador) {
+                contenedorInfoJugador2.getChildren().remove(infoUnidadesJugador2.get(muerta));
+            }
+        }
+    }
+
 }

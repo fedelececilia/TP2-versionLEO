@@ -110,14 +110,17 @@ public class Jugador {
         return this.esTurno;
     }
 
-    public void checkearUnidadesMuertas() {
+    public ArrayList<Unidad> checkearUnidadesMuertas() {
+        ArrayList<Unidad> muertas = new ArrayList<>();
         for(Iterator<Unidad> iterador = unidades.iterator(); iterador.hasNext();){
             Unidad actual = iterador.next();
             if(actual.obtenerVida() <= 0){
+                muertas.add(actual);
                 tablero.obtenerCasillero(actual.obtenerCoordenada()).vaciarCasillero();
                 iterador.remove();
             }
         }
+        return muertas;
     }
 
     public void actualizarEstadoJugador(){
