@@ -84,6 +84,10 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
                     return;
                 }
                 else controlador.habilitarBotonesUnidadDeJugador(jugador1);
+                if (jugador1.obtenerPuntos() == 0 && jugador2.obtenerPuntos() == 0) {
+                    controlador.cambiarAPantallaDeJuego();
+                    controlador.cambiarEstadoDeJuego(true);
+                }
             }
         }
         else {
@@ -96,11 +100,13 @@ public class HandlerCasilleroJugar implements EventHandler<MouseEvent> {
                     return;
                 }
                 controlador.habilitarBotonesUnidadDeJugador(jugador2);
+                if (jugador1.obtenerPuntos() == 0 && jugador2.obtenerPuntos() == 0) {
+                    controlador.cambiarAPantallaDeJuego();
+                    controlador.cambiarEstadoDeJuego(true);
+                }
             }
         }
-        if (jugador1.obtenerPuntos() == 0 && jugador2.obtenerPuntos() == 0) {
-            controlador.cambiarAPantallaDeJuego();
-        }
+
     }
 
     @Override

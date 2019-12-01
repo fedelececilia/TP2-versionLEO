@@ -170,7 +170,7 @@ public class ControladorPrincipal {
         stackPane.getChildren().add(canvas);
 
         stage.setScene(new Scene(stackPane));
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
     }
 
 

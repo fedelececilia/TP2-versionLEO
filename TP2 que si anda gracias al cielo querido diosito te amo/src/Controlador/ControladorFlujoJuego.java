@@ -116,6 +116,10 @@ public class ControladorFlujoJuego {
         return this.ultimaUnidadComprada;
     }
 
+    public void cambiarEstadoDeJuego(boolean jugando) {
+        this.jugando = jugando;
+    }
+
     public boolean obtenerEstadoJuego() {
         return this.jugando;
     }
