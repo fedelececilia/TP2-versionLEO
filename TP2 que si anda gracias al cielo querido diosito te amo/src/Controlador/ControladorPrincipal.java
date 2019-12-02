@@ -215,6 +215,41 @@ public class ControladorPrincipal {
         //stage.setFullScreen(true);
     }
 
+    public void PantallaFinal(Jugador ganador) {
+        BotonSalir botonSalir = new BotonSalir();
+        BotonJugarDeNuevo botonJugarDeNuevo = new BotonJugarDeNuevo();
+        botonJugarDeNuevo.setOnAction(actionEvent -> {
+            stage.setScene(this.MenuInicio());
+            jugador1 = null;
+            jugador2 = null;
+            labelTurno = null;
+            labelEstadoDeJuego = null;
+            seleccionDeUnidades = null;
+            tableroVista = null;
+            infoUnidadesJugador1 = null;
+            infoUnidadesJugador2 = null;
+            contenedorInfoJugador1 = null;
+            contenedorInfoJugador2 = null;
+        });
+
+        HBox contenedorBotones = new HBox(30);
+        contenedorBotones.setAlignment(Pos.CENTER);
+        contenedorBotones.getChildren().addAll(botonJugarDeNuevo, botonSalir);
+
+        Label labelGanador = new Label();
+        labelGanador.setStyle("-fx-text-fill:#2bd61a; -fx-font: 40 arial;");
+        labelGanador.setText("GANADOR: " + ganador.obtenerNombre());
+
+        VBox canvas = new VBox(30);
+        canvas.setAlignment(Pos.CENTER);
+        canvas.getChildren().addAll(labelGanador, contenedorBotones);
+
+        StackPane stackPane = principal();
+        stackPane.getChildren().add(canvas);
+
+        stage.setScene(new Scene(stackPane));
+    }
+
 
     public void cambiarLabelTurno(Jugador jugador) {
         this.labelTurno.setText("Turno de: " + jugador.obtenerNombre() + ".");
@@ -227,33 +262,6 @@ public class ControladorPrincipal {
     public void habilitarBotonesUnidadDeJugador(Jugador jugador) {
         this.seleccionDeUnidades.habilitarBotonesUnidadDeJugador(jugador);
     }
-
-    /*public void cambiarLabelInfoJugador(Jugador jugador, Unidad unidad, boolean miroEnMisAliados) {
-        if (unidad == null) {
-            contenedorInfoJugador1.getChildren().remove(infoUnidadesJugador1.get(unidad));
-            contenedorInfoJugador2.getChildren().remove(infoUnidadesJugador2.get(unidad));
-            /*infoUnidadesJugador1.keySet().removeIf(Objects::isNull);
-            infoUnidadesJugador2.keySet().removeIf(Objects::isNull);
-            return;
-        }
-        if (jugador.obtenerNumeroJugador() == 1) {
-            if (miroEnMisAliados) {
-                Label labelInfoUnidad = infoUnidadesJugador1.get(unidad);
-                labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
-            } else if (!jugador.obtenerListaUnidades().contains(unidad)) {
-                Label labelInfoUnidad = infoUnidadesJugador2.get(unidad);
-                labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
-            }
-        } else {
-            if (miroEnMisAliados) {
-                Label labelInfoUnidad = infoUnidadesJugador2.get(unidad);
-                labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
-            } else if (!jugador.obtenerListaUnidades().contains(unidad)) {
-                Label labelInfoUnidad = infoUnidadesJugador1.get(unidad);
-                labelInfoUnidad.setText(unidad.getClass().getSimpleName() + " - (" + unidad.obtenerCoordenada().obtenerHorizontal() + ", " + unidad.obtenerCoordenada().obtenerVertical() + ") - " + unidad.obtenerVida());
-            }
-        }
-    }*/
 
     public void cambiarLabelsInfoJugador() {
         for (Unidad unidad : jugador1.obtenerListaUnidades()) {

@@ -98,13 +98,15 @@ public class ControladorFlujoJuego {
         /*
           Negativity is my passion
          */
-        if(jugador1.obtenerEstado() == "PERDEDOR"){
-            System.out.println("Perdio el jugador 1");
-            System.exit(0);
+        if(jugador1.obtenerEstado() == "GANADOR"){
+            /*System.out.println("Perdio el jugador 1");
+            System.exit(0);*/
+            controladorPrincipal.PantallaFinal(jugador1);
         }
-        if(jugador2.obtenerEstado() == "PERDEDOR"){
-            System.out.println("Perdio el jugador 2");
-            System.exit(0);
+        if(jugador2.obtenerEstado() == "GANADOR"){
+            /*System.out.println("Perdio el jugador 2");
+            System.exit(0);*/
+            controladorPrincipal.PantallaFinal(jugador2);
         }
     }
 
